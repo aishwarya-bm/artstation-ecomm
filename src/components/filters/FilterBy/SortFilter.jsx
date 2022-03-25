@@ -1,5 +1,8 @@
+import { useFilterProducts } from "../../../contexts/filter-context/filter-context";
+
 export default function SortFilter() {
-  // const { state, dispatch } = useFilterProducts();
+  const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();
+
   return (
     <>
       <h5>Sort by Price</h5>
@@ -10,10 +13,13 @@ export default function SortFilter() {
               type="radio"
               id="lowToHigh"
               name="lowToHigh"
-              // checked={state.sortby === "lowToHigh" ? true : false}
-              // onChange={() =>
-              //   dispatch({ type: "SORT_BY_LOWTOHIGH", payload: "lowToHigh" })
-              // }
+              checked={stateFilter.sortby === "lowToHigh" ? true : false}
+              onChange={() =>
+                dispatchFilter({
+                  type: "SORT_BY_LOWTOHIGH",
+                  payload: "lowToHigh",
+                })
+              }
             />
             low to high
           </label>
@@ -24,10 +30,13 @@ export default function SortFilter() {
               type="radio"
               id="highToLow"
               name="highToLow"
-              // checked={state.sortby === "highToLow" ? true : false}
-              // onChange={() =>
-              //   dispatch({ type: "SORT_BY_HIGHTOLOW", payload: "highToLow" })
-              // }
+              checked={stateFilter.sortby === "highToLow" ? true : false}
+              onChange={() =>
+                dispatchFilter({
+                  type: "SORT_BY_HIGHTOLOW",
+                  payload: "highToLow",
+                })
+              }
             />
             high to low
           </label>

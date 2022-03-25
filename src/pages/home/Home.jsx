@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Categories from "../../components/categories/Categories";
 import "./home.css";
+import { useFilterProducts } from "../../contexts/filter-context/filter-context";
 
 export default function Home() {
-  //   const { dispatch } = useFilterProducts();
+  const { dispatch: dispatchFilter } = useFilterProducts();
   const navigate = useNavigate();
   return (
     <div>
@@ -20,7 +21,7 @@ export default function Home() {
             <button
               className="fa fa-solid btn btn-secondary"
               onClick={() => {
-                // dispatch({ type: "CLEAR_FILTER", payload: "all" });
+                dispatchFilter({ type: "CLEAR_FILTER" });
                 navigate("/productlist");
               }}
             >

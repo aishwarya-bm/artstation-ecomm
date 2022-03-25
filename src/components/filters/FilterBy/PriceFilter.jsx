@@ -1,4 +1,7 @@
+import { useFilterProducts } from "../../../contexts/filter-context/filter-context";
+
 export default function PriceFilter() {
+  const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();
   return (
     <>
       <h5>Price</h5>
@@ -9,15 +12,15 @@ export default function PriceFilter() {
             type="range"
             min="1000"
             max="5000"
-            // value={state.priceLimit}
+            value={stateFilter.priceLimit}
             list="tickmarks"
             step="1000"
-            // onChange={e =>
-            //   dispatch({
-            //     type: "PRICE_RANGE",
-            //     payload: e.target.value,
-            //   })
-            // }
+            onChange={e =>
+              dispatchFilter({
+                type: "PRICE_RANGE",
+                payload: e.target.value,
+              })
+            }
           />
           <datalist id="tickmarks">
             <option value="1000" label="1000"></option>
