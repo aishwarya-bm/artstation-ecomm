@@ -1,0 +1,91 @@
+@import url("https://ui-cookbook.netlify.app/stylesheets/index.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700&display=swap');
+
+body {
+    font-family: 'Roboto',
+        sans-serif;
+}
+
+.nav-container {
+    background-color: var(--secondary-color);
+}
+
+.nav-brand-name {
+    font-family: cursive;
+}
+
+.btn-active {
+    font-weight: bolder;
+    border: 1px solid var(--white-color);
+}
+
+.create-account-link:hover {
+    background-color: transparent;
+}
+
+.card {
+    padding-bottom: 0.5rem;
+    border: 1px solid var(--gold-color);
+    box-shadow: none;
+}
+
+
+.card img {
+    height: 15rem;
+    width: 15rem;
+    border-bottom: 1px solid;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.card-content {
+    flex: 0;
+}
+
+.card button {
+    padding: 0.35rem;
+}
+
+.card-hor {
+    width: 25rem;
+}
+
+.card-hor .card-media {
+    align-self: center;
+    border-bottom: 0;
+    height: auto;
+}
+
+.card-hor .card-data {
+    padding: 0 .5rem;
+}
+
+.card-hor .product-rating {
+    align-self: baseline;
+}
+
+@media screen and (min-width:550px) and (max-width:700px) {
+    .nav-container {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .signup-body {
+        background: none;
+    }
+
+    .signup-container {
+        margin: auto;
+        align-items: baseline;
+        justify-content: center;
+    }
+
+    .signup-section {
+        background-color: transparent;
+        margin-top: 0;
+    }
+
+    .card-hor {
+        width: 20rem;
+    }
+}
