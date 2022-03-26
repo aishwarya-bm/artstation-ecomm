@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./categories.css";
+import { useFilterProducts } from "../../contexts/filter-context/filter-context";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
-  //   const { dispatch } = useFilterProducts();
+  const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();
   const getCategories = async () => {
     try {
       const { data } = await axios.get("/api/categories");
@@ -27,13 +28,13 @@ export default function Categories() {
                   <li key={_id}>
                     <div
                       className="card children-stacked"
-                      // uncomment after adding filter context
-                      //   onClick={() =>
-                      //     dispatch({
-                      //       type: "OPEN_CATEGORY",
-                      //       payload: categoryName,
-                      //     })
-                      //   }
+                      onClick={() => {
+                        console.log("open category", stateFilter);
+                        dispatchFilter({
+                          type: "OPEN_CATEGORY",
+                          payload: categoryName,
+                        });
+                      }}
                     >
                       <Link to={`/productlist/${categoryName}`}>
                         <img

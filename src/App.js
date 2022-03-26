@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./pages/landingpage/LandingPage";
 import Home from "./pages/home/Home";
-
 import Wishlist from "./pages/wishlist/Wishlist";
 import Productlist from "./pages/productlist/Productlist";
 import Cart from "./pages/cart/Cart";
@@ -17,7 +16,7 @@ function App() {
      <Route path="/" element={<Home />}></Route>
      <Route path="/cart" element={<Cart/>}></Route>
      <Route path="/wishlist" element={<Wishlist />}></Route>
-     <Route path="/productlist/:category" element={<Productlist/> }></Route>
+     <Route path="/productlist/:category" element={<Productlist/>}></Route>
     <Route path="/productlist" element={<Productlist/>}></Route>
     </Routes>
     </div>

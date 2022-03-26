@@ -3,13 +3,22 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FilterProducts from "../../components/filters/FilterProducts";
 import Header from "../../components/header/Header";
+import { useFilterProducts } from "../../contexts/filter-context/filter-context";
 import { addToCart } from "../../utils/cart-actions";
+import { compose } from "../../utils/compose";
+import {
+  categoryProducts,
+  priceLimitProducts,
+  ratingLimitProducts,
+  searchedProducts,
+  sortProducts,
+} from "../../utils/filter-by";
 import { addToWishList } from "../../utils/wishlist-actions";
 import "./productlist.css";
 
 export default function Productlist() {
   const [products, setProducts] = useState([]);
-  //   const { state } = useFilterProducts();
+  const { state } = useFilterProducts();
   //   const { state: cartState, dispatch: cartDispatch } = useCart();
   //   const { state: wishlistState, dispatch: dispatchWishlist } = useWishlist();
   const navigate = useNavigate();
@@ -23,6 +32,14 @@ export default function Productlist() {
   }
   useEffect(() => getProducts(), []);
 
+  const filterProducts = compose(
+    searchedProducts,
+    categoryProducts,
+    priceLimitProducts,
+    ratingLimitProducts,
+    sortProducts
+  )(state, products);
+
   return (
     <div>
       <Header />
@@ -35,8 +52,8 @@ export default function Productlist() {
             </div>
 
             <ul className="product-list list-no-bullet d-grid grid-gap">
-              {products &&
-                products?.map(prod => {
+              {filterProducts &&
+                filterProducts?.map(prod => {
                   return (
                     <li key={prod._id}>
                       <div className="card children-stacked product-card">
