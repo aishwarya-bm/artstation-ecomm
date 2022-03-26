@@ -55,7 +55,6 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
         });
         localStorage.setItem("userToken", response.data.encodedToken);
         navigate("/");
-      } else {
       }
     } catch (e) {
       if (e.response && e.response.status === 422) {
