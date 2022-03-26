@@ -1,30 +1,65 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLogin } from "../../contexts/login-context/login-context";
 import "./signup.css";
-export default function Signin() {
-  //   const { state: userState, dispatch: userDispatch } = useLogin();
-  //   const { email, password } = userState.user;
-  const [showPassword, setShowPassword] = useState(false);
+import axios from "axios";
+
+export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
+  const { dispatchUser } = useLogin();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [loginForm, setLoginForm] = useState({
+    email: "",
+    password: "",
+  });
+
   const changeHandler = event => {
     event.preventDefault();
-    // return userDispatch({ type: "USER_FORM", payload: event.target });
+    setLoginForm(() => ({
+      ...loginForm,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const toggleShowPassword = e => {
     e.preventDefault();
-    console.log("in toggle pwd");
     setShowPassword(() => (showPassword ? false : true));
+  };
+
+  const loginFailedActions = () => {
+    setAlertMsg("Incorrect username or password, try again.");
+    setShowAlert(true);
+
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 5000);
+  };
+
+  const loginUser = async loginForm => {
+    try {
+      let response = await axios.post("api/auth/login", loginForm);
+      if (response.status === 200) {
+        localStorage.setItem("userToken", response.data.encodedToken);
+        dispatchUser({ type: "SET_USER_LOGIN" });
+        navigate("/");
+      } else {
+        loginFailedActions();
+      }
+    } catch (err) {
+      loginFailedActions();
+    }
+  };
+
+  const handleLoginSubmit = e => {
+    e.preventDefault();
+    loginUser(loginForm);
   };
 
   return (
     <>
       <section className="signup-section d-grid grid-gap" id="login-section">
         <h3 className="text-center">Login</h3>
-        <form
-          className="d-grid grid-gap"
-          // onSubmit={e => loginUser(e)}
-        >
+        <form className="d-grid grid-gap" onSubmit={e => handleLoginSubmit(e)}>
           <div className="d-grid">
             <label>
               Email
@@ -35,7 +70,7 @@ export default function Signin() {
               type="text"
               placeholder="enter your username"
               name="email"
-              //   value={email}
+              value={loginForm.email}
               onChange={e => changeHandler(e)}
             />
           </div>
@@ -49,20 +84,19 @@ export default function Signin() {
               type={showPassword ? "text" : "password"}
               placeholder="enter your password"
               name="password"
-              //   value={password}
+              value={loginForm.password}
               onChange={e => changeHandler(e)}
             />
-            {showPassword && (
+            {showPassword ? (
               <button
-                disabled={password ? false : true}
+                disabled={loginForm.password ? false : true}
                 className="fa fa-solid fa-eye btn btn-link"
                 style={{ position: "absolute", right: "0px", top: "20px" }}
                 onClick={e => toggleShowPassword(e)}
               ></button>
-            )}
-            {!showPassword && (
+            ) : (
               <button
-                // disabled={password ? false : true}
+                disabled={loginForm.password ? false : true}
                 className="fa fa-solid fa-eye-slash btn btn-link"
                 style={{ position: "absolute", right: "0px", top: "20px" }}
                 onClick={e => toggleShowPassword(e)}
@@ -76,10 +110,9 @@ export default function Signin() {
         </form>
         <button
           className="btn btn-link create-account-link"
-          //   onClick={() => {
-          //     console.log("inside CREATE_ACCOUNT_LINK");
-          //     userDispatch({ type: "CREATE_ACCOUNT_LINK" });
-          //   }}
+          onClick={() => {
+            setIsSignUp(true);
+          }}
         >
           <i>Create new account &nbsp;</i>
           <i className="fa fa-solid fa-angle-right"></i>

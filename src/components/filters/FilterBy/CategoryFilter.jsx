@@ -12,7 +12,6 @@ export default function CategoryFilter() {
             id="brushes"
             name="brushes"
             onChange={() => {
-              console.log(stateFilter);
               dispatchFilter({
                 type: "CATEGORY_SELECTION",
                 payload: "brushes",
