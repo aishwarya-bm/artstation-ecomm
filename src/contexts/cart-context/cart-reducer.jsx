@@ -3,7 +3,15 @@ import { calculateDiscount, calculatePrice } from "../../utils/cart-checkout";
 export const cartReducer = (state, action) => {
   switch (action.type) {
     case "GET_CART_ITEMS":
-      return { ...state, cart: action.payload };
+      return {
+        cart: action.payload,
+        cartSize:
+          action.payload.length > 0
+            ? action.payload.reduce((acc, curr) => acc + Number(curr.qty), 0)
+            : 0,
+        cartPrice: calculatePrice(action.payload),
+        cartDiscount: calculateDiscount(action.payload),
+      };
 
     case "ADD_TO_CART":
       return {
@@ -29,7 +37,10 @@ export const cartReducer = (state, action) => {
     case "REMOVE_ITEM":
       return {
         cart: action.payload,
-        cartSize: action.payload.reduce((acc, curr) => acc + curr.qty, 0),
+        cartSize:
+          action.payload.length > 0
+            ? action.payload.reduce((acc, curr) => acc + Number(curr.qty), 0)
+            : 0,
         cartPrice: calculatePrice(action.payload),
         cartDiscount: calculateDiscount(action.payload),
       };

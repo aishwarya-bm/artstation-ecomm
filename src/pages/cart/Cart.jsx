@@ -1,17 +1,24 @@
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import CartPrice from "../../components/cartprice/CartPrice";
-import { useCart, useLogin } from "../../contexts/index-context";
+import { useCart, useLogin, useWishlist } from "../../contexts/index-context";
 import "./cart.css";
 import {
   decrementCartItem,
   deleteFromCart,
+  getCartItems,
   incrementCartItem,
 } from "../../utils/cartitem-actions";
+import { useEffect } from "react";
+
+import { moveItemFromCartToWishlist } from "../../utils/wishlist-actions";
 
 export default function Cart() {
   const { stateCart, dispatchCart } = useCart();
   const { stateUser } = useLogin();
+  const { stateWishlist, dispatchWishlist } = useWishlist();
+  const navigate = useNavigate();
+  useEffect(() => getCartItems(dispatchCart, navigate), []);
   return (
     <>
       <Header />
@@ -83,9 +90,15 @@ export default function Cart() {
                         <div className="children-stacked grid-gap">
                           <button
                             className="fa fa-solid fa-heart btn btn-secondary"
-                            // onClick={() =>
-                            //   moveFromCartToWishlist(product)
-                            // }
+                            onClick={() =>
+                              moveItemFromCartToWishlist(
+                                product,
+                                stateWishlist,
+                                dispatchCart,
+                                dispatchWishlist,
+                                navigate
+                              )
+                            }
                           >
                             Move to Wishlist
                           </button>

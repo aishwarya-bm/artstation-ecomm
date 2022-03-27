@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { useCart, useLogin } from "../../contexts/index-context";
+import { useCart, useLogin, useWishlist } from "../../contexts/index-context";
 import { signoutUser } from "../../utils/login-utils";
 
 export default function Navpills() {
   const { stateCart, dispatchCart } = useCart();
   const { dispatchUser } = useLogin();
+  const { stateWishlist, dispatchWishlist } = useWishlist();
 
   return (
     <>
@@ -25,9 +26,9 @@ export default function Navpills() {
               <Link to="/wishlist">
                 <i className="fa fa-solid fa-heart nav-btn"></i>
               </Link>
-              {/* {wishlistState.size > 0 && (
-                <span className="badge">{wishlistState.size}</span>
-              )} */}
+              {stateWishlist.wishlistSize > 0 && (
+                <span className="badge">{stateWishlist.wishlistSize}</span>
+              )}
             </span>
           </li>
           <li className="list-item nav-item">
@@ -51,7 +52,9 @@ export default function Navpills() {
           <Link to="/signup">
             <i
               className="fa fas fa-sign-out-alt btn btn-link nav-btn"
-              onClick={() => signoutUser(dispatchCart, dispatchUser)}
+              onClick={() =>
+                signoutUser(dispatchCart, dispatchWishlist, dispatchUser)
+              }
             ></i>
           </Link>
         )}

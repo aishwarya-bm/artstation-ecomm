@@ -85,4 +85,23 @@ const deleteFromCart = async (product, dispatchCart) => {
   }
 };
 
-export { addToCart, incrementCartItem, decrementCartItem, deleteFromCart };
+const getCartItems = async (dispatchCart,navigate) => {
+    let response;
+    try {
+      response = await axios.get("/api/user/cart", {
+        headers: {
+          authorization: localStorage.getItem("userToken"),
+        },
+      });
+
+      if (response.status === 200) {
+        dispatchCart({type:"GET_CART_ITEMS",payload:response.data.cart})
+      } else {
+        navigate("/signup");
+      }
+    } catch (err) {
+      console.log("Please login to continue", err);
+    }
+  };
+
+export { addToCart, incrementCartItem, decrementCartItem, deleteFromCart,getCartItems };
