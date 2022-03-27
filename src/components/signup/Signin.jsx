@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLogin } from "../../contexts/login-context/login-context";
+import { useLogin } from "../../contexts/index-context";
 import "./signup.css";
-import axios from "axios";
+import { loginUser } from "../../utils/login-utils";
 
 export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
   const { dispatchUser } = useLogin();
@@ -26,33 +26,9 @@ export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
     setShowPassword(() => (showPassword ? false : true));
   };
 
-  const loginFailedActions = () => {
-    setAlertMsg("Incorrect username or password, try again.");
-    setShowAlert(true);
-
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 5000);
-  };
-
-  const loginUser = async loginForm => {
-    try {
-      const response = await axios.post("api/auth/login", loginForm);
-      if (response.status === 200) {
-        localStorage.setItem("userToken", response.data.encodedToken);
-        dispatchUser({ type: "SET_USER_LOGIN" });
-        navigate("/");
-      } else {
-        loginFailedActions();
-      }
-    } catch (err) {
-      loginFailedActions();
-    }
-  };
-
   const handleLoginSubmit = e => {
     e.preventDefault();
-    loginUser(loginForm);
+    loginUser(loginForm, dispatchUser, setAlertMsg, setShowAlert, navigate);
   };
 
   return (

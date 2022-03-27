@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./categories.css";
-import { useFilterProducts } from "../../contexts/filter-context/filter-context";
+import { useFilterProducts } from "../../contexts/index-context";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -29,7 +29,6 @@ export default function Categories() {
                     <div
                       className="card children-stacked"
                       onClick={() => {
-                        console.log("open category", stateFilter);
                         dispatchFilter({
                           type: "OPEN_CATEGORY",
                           payload: categoryName,

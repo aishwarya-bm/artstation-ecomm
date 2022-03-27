@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FilterProducts from "../../components/filters/FilterProducts";
-import Header from "../../components/header/Header";
-import { useFilterProducts } from "../../contexts/filter-context/filter-context";
-import { addToCart } from "../../utils/cart-actions";
+import { useCart, useFilterProducts } from "../../contexts/index-context";
+import { addToCart } from "../../utils/cartitem-actions";
 import { compose } from "../../utils/compose";
 import {
   categoryProducts,
@@ -14,14 +12,18 @@ import {
   sortProducts,
 } from "../../utils/filter-by";
 import { addToWishList } from "../../utils/wishlist-actions";
+import FilterProducts from "../../components/filters/FilterProducts";
+import Header from "../../components/header/Header";
 import "./productlist.css";
 
 export default function Productlist() {
   const [products, setProducts] = useState([]);
   const { state } = useFilterProducts();
-  //   const { state: cartState, dispatch: cartDispatch } = useCart();
+  const { stateCart, dispatchCart } = useCart();
   //   const { state: wishlistState, dispatch: dispatchWishlist } = useWishlist();
+
   const navigate = useNavigate();
+
   async function getProducts() {
     try {
       const { data } = await axios.get("/api/products");
@@ -30,6 +32,10 @@ export default function Productlist() {
       console.log("error", e);
     }
   }
+
+  const isProductInCart = p_id => {
+    return stateCart.cart.find(p => p._id === p_id);
+  };
   useEffect(() => getProducts(), []);
 
   const filterProducts = compose(
@@ -98,13 +104,7 @@ export default function Productlist() {
                           </div>
                         </div>
                         <div className="children-stacked">
-                          <button
-                            className="fa fa-shopping-cart btn btn-secondary"
-                            onClick={() => addToCart(prod)}
-                          >
-                            Add to cart
-                          </button>
-                          {/* {isProductInCart(prod._id) ? (
+                          {isProductInCart(prod._id) ? (
                             <button
                               className="fa fa-shopping-cart btn btn-light"
                               onClick={() => {
@@ -116,11 +116,13 @@ export default function Productlist() {
                           ) : (
                             <button
                               className="fa fa-shopping-cart btn btn-secondary"
-                              onClick={() => addToCart(prod)}
+                              onClick={() =>
+                                addToCart(prod, dispatchCart, navigate)
+                              }
                             >
                               Add to cart
                             </button>
-                          )} */}
+                          )}
                         </div>
                       </div>
                     </li>

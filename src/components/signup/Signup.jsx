@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { validateUser } from "../../utils/validate-user";
 import "./signup.css";
 import axios from "axios";
+import { createUser } from "../../utils/login-utils";
 
 export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
   const { dispatchUser } = useLogin();
@@ -32,45 +33,17 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
     setShowPassword(() => (showPassword ? false : true));
   };
 
-  const createUser = async signupForm => {
-    const userErrors = validateUser(signupForm.mobile, signupForm.email);
-    setUserErr(userErrors);
-    if (userErrors["phone"] || userErrors["email"]) {
-      return;
-    }
-    try {
-      const response = await axios.post("api/auth/signup", signupForm);
-      if (response.status === 201) {
-        setSignupForm({
-          firstname: "",
-          lastname: "",
-          email: "",
-          password: "",
-          mobile: "",
-        });
-        setUserErr({ email: "", phone: "" });
-        dispatchUser({
-          type: "SIGNUP_SUCCESS",
-          payload: response.data.createdUser,
-        });
-        localStorage.setItem("userToken", response.data.encodedToken);
-        navigate("/");
-      }
-    } catch (e) {
-      if (e.response && e.response.status === 422) {
-        setAlertMsg("Email already exists, use different one.");
-        setShowAlert(true);
-
-        setTimeout(() => {
-          setShowAlert(false);
-        }, 5000);
-      }
-    }
-  };
-
   const handleSignupSubmit = e => {
     e.preventDefault();
-    createUser(signupForm);
+    createUser(
+      signupForm,
+      setUserErr,
+      setSignupForm,
+      dispatchUser,
+      setAlertMsg,
+      setShowAlert,
+      navigate
+    );
   };
 
   return (
