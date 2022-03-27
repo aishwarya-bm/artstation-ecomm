@@ -4,78 +4,16 @@ import CartPrice from "../../components/cartprice/CartPrice";
 import { useEffect, useState } from "react";
 import { useCart } from "../../contexts/cart-context/cart-context";
 import { useLogin } from "../../contexts/login-context/login-context";
-import axios from "axios";
 import "./cart.css";
+import {
+  decrementCartItem,
+  deleteFromCart,
+  incrementCartItem,
+} from "../../utils/cartitem-actions";
 
 export default function Cart() {
   const { stateCart, dispatchCart } = useCart();
   const { stateUser } = useLogin();
-  const navigate = useNavigate();
-
-  const deleteFromCart = async product => {
-    const path = `/api/user/cart/${product._id}`;
-    try {
-      const response = await axios.delete(path, {
-        headers: {
-          authorization: localStorage.getItem("userToken"),
-        },
-      });
-      if (response.status === 200) {
-        dispatchCart({ type: "REMOVE_ITEM", payload: response.data.cart });
-      }
-    } catch (err) {
-      console.log("Please login to continue", err);
-    }
-  };
-
-  const incrementCartItem = async product => {
-    const path = `/api/user/cart/${product._id}`;
-    try {
-      const response = await axios.post(
-        path,
-        {
-          action: {
-            type: "increment",
-          },
-        },
-        {
-          headers: {
-            authorization: localStorage.getItem("userToken"),
-          },
-        }
-      );
-      if (response.status === 200) {
-        console.log("correct status");
-        dispatchCart({ type: "INCREMENT_ITEM", payload: response.data.cart });
-      }
-    } catch (e) {
-      console.log("Please login to continue", err);
-    }
-  };
-
-  const decrementCartItem = async product => {
-    const path = `/api/user/cart/${product._id}`;
-    try {
-      const response = await axios.post(
-        path,
-        {
-          action: {
-            type: "decrement",
-          },
-        },
-        {
-          headers: {
-            authorization: localStorage.getItem("userToken"),
-          },
-        }
-      );
-      if (response.status === 200) {
-        dispatchCart({ type: "DECREMENT_ITEM", payload: response.data.cart });
-      }
-    } catch (e) {
-      console.log("Please login to continue", err);
-    }
-  };
   return (
     <>
       <Header />
@@ -112,14 +50,18 @@ export default function Cart() {
                           {product.qty === 1 ? (
                             <button
                               className="btn btn-link"
-                              onClick={() => deleteFromCart(product)}
+                              onClick={() =>
+                                deleteFromCart(product, dispatchCart)
+                              }
                             >
                               <i className="fa fa-solid fa-trash"></i>
                             </button>
                           ) : (
                             <button
                               className="btn btn-link"
-                              onClick={() => decrementCartItem(product)}
+                              onClick={() =>
+                                decrementCartItem(product, dispatchCart)
+                              }
                             >
                               <i className="fa fa-solid fa-minus"></i>
                             </button>
@@ -133,7 +75,9 @@ export default function Cart() {
                           />
                           <button
                             className="btn btn-link"
-                            onClick={() => incrementCartItem(product)}
+                            onClick={() =>
+                              incrementCartItem(product, dispatchCart)
+                            }
                           >
                             <i className="fa fa-solid fa-plus"></i>
                           </button>
@@ -141,13 +85,17 @@ export default function Cart() {
                         <div className="children-stacked grid-gap">
                           <button
                             className="fa fa-solid fa-heart btn btn-secondary"
-                            onClick={() => moveFromCartToWishlist(product)}
+                            // onClick={() =>
+                            //   moveFromCartToWishlist(product)
+                            // }
                           >
                             Move to Wishlist
                           </button>
                           <button
                             className="fa fa-shopping-cart btn btn-light"
-                            onClick={() => deleteFromCart(product)}
+                            onClick={() =>
+                              deleteFromCart(product, dispatchCart)
+                            }
                           >
                             Remove from cart
                           </button>

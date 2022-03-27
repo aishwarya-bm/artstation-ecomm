@@ -5,6 +5,7 @@ import FilterProducts from "../../components/filters/FilterProducts";
 import Header from "../../components/header/Header";
 import { useCart } from "../../contexts/cart-context/cart-context";
 import { useFilterProducts } from "../../contexts/filter-context/filter-context";
+import { addToCart } from "../../utils/cartitem-actions";
 import { compose } from "../../utils/compose";
 import {
   categoryProducts,
@@ -23,29 +24,6 @@ export default function Productlist() {
   //   const { state: wishlistState, dispatch: dispatchWishlist } = useWishlist();
 
   const navigate = useNavigate();
-
-  const addToCart = async product => {
-    let response;
-    try {
-      response = await axios.post(
-        "/api/user/cart",
-        { product },
-        {
-          headers: {
-            authorization: localStorage.getItem("userToken"),
-          },
-        }
-      );
-      if (response.status === 201) {
-        dispatchCart({ type: "ADD_TO_CART", payload: response.data.cart });
-      }
-    } catch (e) {
-      // console.log("some error occured", e);
-      if (!localStorage.getItem("userToken")) {
-        navigate("/signup");
-      }
-    }
-  };
 
   async function getProducts() {
     try {
@@ -139,7 +117,7 @@ export default function Productlist() {
                           ) : (
                             <button
                               className="fa fa-shopping-cart btn btn-secondary"
-                              onClick={() => addToCart(prod)}
+                              onClick={() => addToCart(prod, dispatchCart)}
                             >
                               Add to cart
                             </button>

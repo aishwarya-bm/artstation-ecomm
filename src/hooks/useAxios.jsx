@@ -19,5 +19,5 @@ export default function useAxios() {
     }
   };
 
-  return asyncFn;
+  return { asyncFn, response, err };
 }
