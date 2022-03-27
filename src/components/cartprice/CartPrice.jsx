@@ -3,17 +3,7 @@ import "./cartprice.css";
 export default function CartPrice() {
   const { stateCart } = useCart();
   const { cartPrice, cartDiscount } = stateCart;
-  const calculateCartPrice = cart => {
-    const price = cart.reduce((acc, curr) => acc + Number(curr.orig_price), 0);
-    const discount = cart.reduce(
-      (acc, curr) => acc + Number(curr.orig_price) - Number(curr.curr_price),
-      0
-    );
-    const netAmount = price - discount;
-    return { price, discount, netAmount };
-  };
 
-  const { price, discount, netAmount } = calculateCartPrice(stateCart.cart);
   return (
     <>
       <div className="cart-price children-stacked">
@@ -22,7 +12,7 @@ export default function CartPrice() {
           <hr></hr>
 
           <div className="total-price d-flex">
-            <span>Total MRP</span>
+            <span>Total MRP {`(${stateCart.cartSize} items)`} </span>
             <span>
               &#x20b9;
               {cartPrice}
