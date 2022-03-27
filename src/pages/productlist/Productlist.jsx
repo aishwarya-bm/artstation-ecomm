@@ -117,7 +117,9 @@ export default function Productlist() {
                           ) : (
                             <button
                               className="fa fa-shopping-cart btn btn-secondary"
-                              onClick={() => addToCart(prod, dispatchCart)}
+                              onClick={() =>
+                                addToCart(prod, dispatchCart, navigate)
+                              }
                             >
                               Add to cart
                             </button>
