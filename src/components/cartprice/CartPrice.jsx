@@ -1,6 +1,19 @@
+import { useCart } from "../../contexts/cart-context/cart-context";
 import "./cartprice.css";
 export default function CartPrice() {
-  // const { state: cartState } = useCart();
+  const { stateCart } = useCart();
+  const { cartPrice, cartDiscount } = stateCart;
+  const calculateCartPrice = cart => {
+    const price = cart.reduce((acc, curr) => acc + Number(curr.orig_price), 0);
+    const discount = cart.reduce(
+      (acc, curr) => acc + Number(curr.orig_price) - Number(curr.curr_price),
+      0
+    );
+    const netAmount = price - discount;
+    return { price, discount, netAmount };
+  };
+
+  const { price, discount, netAmount } = calculateCartPrice(stateCart.cart);
   return (
     <>
       <div className="cart-price children-stacked">
@@ -12,7 +25,7 @@ export default function CartPrice() {
             <span>Total MRP</span>
             <span>
               &#x20b9;
-              {/* {cartState.cartPrice} */}
+              {cartPrice}
             </span>
           </div>
 
@@ -20,11 +33,10 @@ export default function CartPrice() {
             <span>Discount on MRP</span>
             <span className="green-text">
               -&nbsp; &#x20b9;
-              {/* {cartState.cartDiscount} */}
+              {cartDiscount}
             </span>
           </div>
           {/* keeping for future use, not required for now */}
-
           {/* <div className="coupon-name d-flex">
             <span>Coupon code</span>
             <span>
@@ -40,7 +52,7 @@ export default function CartPrice() {
             <span>Net Amount</span>
             <span>
               &#x20b9;
-              {/* {cartState.cartPrice - cartState.cartDiscount} */}
+              {cartPrice - cartDiscount}
             </span>
           </div>
         </div>

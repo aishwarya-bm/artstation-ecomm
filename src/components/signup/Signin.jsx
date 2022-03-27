@@ -40,7 +40,7 @@ export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
       const response = await axios.post("api/auth/login", loginForm);
       if (response.status === 200) {
         localStorage.setItem("userToken", response.data.encodedToken);
-        dispatchUser({ type: "SET_USER_LOGIN" });
+        dispatchUser({ type: "SET_USER_LOGIN", payload: loginForm });
         navigate("/");
       } else {
         loginFailedActions();

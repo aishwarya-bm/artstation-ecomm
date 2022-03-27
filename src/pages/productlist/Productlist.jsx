@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FilterProducts from "../../components/filters/FilterProducts";
 import Header from "../../components/header/Header";
+import { useCart } from "../../contexts/cart-context/cart-context";
 import { useFilterProducts } from "../../contexts/filter-context/filter-context";
-import { addToCart } from "../../utils/cart-actions";
 import { compose } from "../../utils/compose";
 import {
   categoryProducts,
@@ -19,9 +19,34 @@ import "./productlist.css";
 export default function Productlist() {
   const [products, setProducts] = useState([]);
   const { state } = useFilterProducts();
-  //   const { state: cartState, dispatch: cartDispatch } = useCart();
+  const { stateCart, dispatchCart } = useCart();
   //   const { state: wishlistState, dispatch: dispatchWishlist } = useWishlist();
+
   const navigate = useNavigate();
+
+  const addToCart = async product => {
+    let response;
+    try {
+      response = await axios.post(
+        "/api/user/cart",
+        { product },
+        {
+          headers: {
+            authorization: localStorage.getItem("userToken"),
+          },
+        }
+      );
+      if (response.status === 201) {
+        dispatchCart({ type: "ADD_TO_CART", payload: response.data.cart });
+      }
+    } catch (e) {
+      // console.log("some error occured", e);
+      if (!localStorage.getItem("userToken")) {
+        navigate("/signup");
+      }
+    }
+  };
+
   async function getProducts() {
     try {
       const { data } = await axios.get("/api/products");
@@ -30,6 +55,10 @@ export default function Productlist() {
       console.log("error", e);
     }
   }
+
+  const isProductInCart = p_id => {
+    return stateCart.cart.find(p => p._id === p_id);
+  };
   useEffect(() => getProducts(), []);
 
   const filterProducts = compose(
@@ -98,13 +127,7 @@ export default function Productlist() {
                           </div>
                         </div>
                         <div className="children-stacked">
-                          <button
-                            className="fa fa-shopping-cart btn btn-secondary"
-                            onClick={() => addToCart(prod)}
-                          >
-                            Add to cart
-                          </button>
-                          {/* {isProductInCart(prod._id) ? (
+                          {isProductInCart(prod._id) ? (
                             <button
                               className="fa fa-shopping-cart btn btn-light"
                               onClick={() => {
@@ -120,7 +143,7 @@ export default function Productlist() {
                             >
                               Add to cart
                             </button>
-                          )} */}
+                          )}
                         </div>
                       </div>
                     </li>

@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../../contexts/cart-context/cart-context";
+import { useLogin } from "../../contexts/login-context/login-context";
 
 export default function Navpills() {
-  //   const { state: cartState } = useCart();
+  const { stateCart, dispatchCart } = useCart();
+  const { dispatchUser } = useLogin();
   //   const { state: wishlistState } = useWishlist();
+  const signoutUser = () => {
+    localStorage.removeItem("userToken");
+    dispatchCart({ type: "RESET_CART" });
+    dispatchUser({ type: "LOGOUT_USER" });
+  };
   return (
     <>
       <div className="nav-pills d-flex">
@@ -32,9 +40,9 @@ export default function Navpills() {
               <Link to="/cart">
                 <i className="fa fa-shopping-cart nav-btn"></i>
               </Link>
-              {/* {cartState.cartSize > 0 && (
-                <span className="badge">{cartState.cartSize}</span>
-              )} */}
+              {stateCart.cartSize > 0 && (
+                <span className="badge">{stateCart.cartSize}</span>
+              )}
             </span>
           </li>
         </ul>
@@ -48,9 +56,7 @@ export default function Navpills() {
           <Link to="/signup">
             <i
               className="fa fas fa-sign-out-alt btn btn-link nav-btn"
-              onClick={() => {
-                localStorage.removeItem("userToken");
-              }}
+              onClick={() => signoutUser()}
             ></i>
           </Link>
         )}

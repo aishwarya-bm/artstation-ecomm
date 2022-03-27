@@ -1,5 +1,4 @@
 export default function loginReducer(state, action) {
-  console.log(action.payload);
   switch (action.type) {
     case "SIGNUP_SUCCESS": {
       return {
@@ -10,6 +9,9 @@ export default function loginReducer(state, action) {
     }
 
     case "SET_USER_LOGIN":
-      return { ...state, isLoggedIn: true };
+      return { ...state, isLoggedIn: true, user: action.payload };
+
+    case "LOGOUT_USER":
+      return { ...state, isLoggedIn: false, user: {} };
   }
 }
