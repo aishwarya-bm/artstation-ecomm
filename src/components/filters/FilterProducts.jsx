@@ -2,7 +2,7 @@ import CategoryFilter from "./FilterBy/CategoryFilter";
 import PriceFilter from "./FilterBy/PriceFilter";
 import RatingFilter from "./FilterBy/RatingFilter";
 import SortFilter from "./FilterBy/SortFilter";
-import { useFilterProducts } from "../../contexts/filter-context/filter-context";
+import { useFilterProducts } from "../../contexts/index-context";
 import "./filter-products.css";
 
 export default function FilterProducts() {

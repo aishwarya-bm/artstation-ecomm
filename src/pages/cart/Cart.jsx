@@ -1,9 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import CartPrice from "../../components/cartprice/CartPrice";
-import { useEffect, useState } from "react";
-import { useCart } from "../../contexts/cart-context/cart-context";
-import { useLogin } from "../../contexts/login-context/login-context";
+import { useCart, useLogin } from "../../contexts/index-context";
 import "./cart.css";
 import {
   decrementCartItem,

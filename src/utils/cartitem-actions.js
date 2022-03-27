@@ -1,9 +1,8 @@
 import axios from "axios";
 
 const addToCart = async (product, dispatchCart,navigate) => {
-  let response;
   try {
-    response = await axios.post(
+    const response = await axios.post(
       "/api/user/cart",
       { product },
       {

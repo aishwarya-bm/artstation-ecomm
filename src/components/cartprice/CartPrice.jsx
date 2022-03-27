@@ -1,4 +1,4 @@
-import { useCart } from "../../contexts/cart-context/cart-context";
+import { useCart } from "../../contexts/index-context";
 import "./cartprice.css";
 export default function CartPrice() {
   const { stateCart } = useCart();

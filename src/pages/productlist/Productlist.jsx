@@ -1,10 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FilterProducts from "../../components/filters/FilterProducts";
-import Header from "../../components/header/Header";
-import { useCart } from "../../contexts/cart-context/cart-context";
-import { useFilterProducts } from "../../contexts/filter-context/filter-context";
+import { useCart, useFilterProducts } from "../../contexts/index-context";
 import { addToCart } from "../../utils/cartitem-actions";
 import { compose } from "../../utils/compose";
 import {
@@ -15,6 +12,8 @@ import {
   sortProducts,
 } from "../../utils/filter-by";
 import { addToWishList } from "../../utils/wishlist-actions";
+import FilterProducts from "../../components/filters/FilterProducts";
+import Header from "../../components/header/Header";
 import "./productlist.css";
 
 export default function Productlist() {

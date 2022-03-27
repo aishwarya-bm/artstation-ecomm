@@ -1,16 +1,11 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../../contexts/cart-context/cart-context";
-import { useLogin } from "../../contexts/login-context/login-context";
+import { useCart, useLogin } from "../../contexts/index-context";
+import { signoutUser } from "../../utils/login-utils";
 
 export default function Navpills() {
   const { stateCart, dispatchCart } = useCart();
   const { dispatchUser } = useLogin();
-  //   const { state: wishlistState } = useWishlist();
-  const signoutUser = () => {
-    localStorage.removeItem("userToken");
-    dispatchCart({ type: "RESET_CART" });
-    dispatchUser({ type: "LOGOUT_USER" });
-  };
+
   return (
     <>
       <div className="nav-pills d-flex">
@@ -56,7 +51,7 @@ export default function Navpills() {
           <Link to="/signup">
             <i
               className="fa fas fa-sign-out-alt btn btn-link nav-btn"
-              onClick={() => signoutUser()}
+              onClick={() => signoutUser(dispatchCart, dispatchUser)}
             ></i>
           </Link>
         )}

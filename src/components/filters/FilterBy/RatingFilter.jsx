@@ -1,4 +1,4 @@
-import { useFilterProducts } from "../../../contexts/filter-context/filter-context";
+import { useFilterProducts } from "../../../contexts/index-context";
 
 export default function RatingFilter() {
   const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();

@@ -8,7 +8,7 @@ const LoginContext = createContext();
 const LoginProvider = ({ children }) => {
   const [stateUser, dispatchUser] = useReducer(loginReducer, {
     user: {},
-    isLoggedIn: localStorage.getItem("userToken") ? true : false,
+    isLoggedIn: false,
   });
 
   return (
