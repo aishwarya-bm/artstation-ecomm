@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import Header from "../../components/header/Header";
 import {
   addWishlistItemToCart,
-  getWishlistItems,
   removeFromWishlist,
 } from "../../utils/wishlist-actions";
 import { useCart, useWishlist } from "../../contexts/index-context";
@@ -13,7 +12,7 @@ export default function Wishlist() {
   const { wishlist, dispatchWishlist, wishlistSize } = useWishlist();
   const { cart, dispatchCart } = useCart();
   const navigate = useNavigate();
-  useEffect(() => getWishlistItems(dispatchWishlist, navigate), []);
+
   return (
     <>
       <Header />
