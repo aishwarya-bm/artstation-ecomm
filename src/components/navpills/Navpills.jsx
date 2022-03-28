@@ -3,9 +3,9 @@ import { useCart, useLogin, useWishlist } from "../../contexts/index-context";
 import { signoutUser } from "../../utils/login-utils";
 
 export default function Navpills() {
-  const { stateCart, dispatchCart } = useCart();
+  const { cartSize, dispatchCart } = useCart();
   const { dispatchUser } = useLogin();
-  const { stateWishlist, dispatchWishlist } = useWishlist();
+  const { dispatchWishlist, wishlistSize } = useWishlist();
 
   return (
     <>
@@ -26,8 +26,8 @@ export default function Navpills() {
               <Link to="/wishlist">
                 <i className="fa fa-solid fa-heart nav-btn"></i>
               </Link>
-              {stateWishlist.wishlistSize > 0 && (
-                <span className="badge">{stateWishlist.wishlistSize}</span>
+              {wishlistSize > 0 && (
+                <span className="badge">{wishlistSize}</span>
               )}
             </span>
           </li>
@@ -36,9 +36,7 @@ export default function Navpills() {
               <Link to="/cart">
                 <i className="fa fa-shopping-cart nav-btn"></i>
               </Link>
-              {stateCart.cartSize > 0 && (
-                <span className="badge">{stateCart.cartSize}</span>
-              )}
+              {cartSize > 0 && <span className="badge">{cartSize}</span>}
             </span>
           </li>
         </ul>

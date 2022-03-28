@@ -63,8 +63,8 @@ const removeFromWishlist = async (product,dispatchWishlist,navigate) => {
     }
   };
 
-  const addWishlistItemToCart = (product,stateCart,dispatchCart,dispatchWishlist,navigate) => {
-    if (stateCart.cart.find(p => p._id === product._id)) {
+  const addWishlistItemToCart = (product,cart,dispatchCart,dispatchWishlist,navigate) => {
+    if (cart.find(p => p._id === product._id)) {
       incrementCartItem(product, dispatchCart)       
     } else {
       addToCart(product, dispatchCart,navigate)
@@ -72,9 +72,9 @@ const removeFromWishlist = async (product,dispatchWishlist,navigate) => {
     removeFromWishlist(product,dispatchWishlist,navigate);
   };
 
-  const moveItemFromCartToWishlist = (product,stateWishlist,dispatchCart,dispatchWishlist,navigate) => {
+  const moveItemFromCartToWishlist = (product,wishlist,dispatchCart,dispatchWishlist,navigate) => {
     deleteFromCart(product, dispatchCart)
-    if (!stateWishlist.wishlist.find(p => p._id === product._id)) {
+    if (!wishlist.find(p => p._id === product._id)) {
       addToWishList(product,dispatchWishlist,navigate);
     }
   };

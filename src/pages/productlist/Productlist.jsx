@@ -26,8 +26,8 @@ import "./productlist.css";
 export default function Productlist() {
   const [products, setProducts] = useState([]);
   const { state } = useFilterProducts();
-  const { stateCart, dispatchCart } = useCart();
-  const { stateWishlist, dispatchWishlist } = useWishlist();
+  const { cart, dispatchCart } = useCart();
+  const { wishlist, dispatchWishlist } = useWishlist();
 
   const navigate = useNavigate();
 
@@ -41,11 +41,11 @@ export default function Productlist() {
   }
 
   const isProductInCart = p_id => {
-    return stateCart.cart.find(p => p._id === p_id);
+    return cart.find(p => p._id === p_id);
   };
 
   const isProductInWishlist = p_id => {
-    return stateWishlist.wishlist?.find(p => p._id === p_id);
+    return wishlist?.find(p => p._id === p_id);
   };
   useEffect(() => getProducts(), []);
 

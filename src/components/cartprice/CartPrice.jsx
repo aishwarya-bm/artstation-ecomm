@@ -1,8 +1,13 @@
 import { useCart } from "../../contexts/index-context";
+import {
+  calculateDiscount,
+  calculatePrice,
+  getCheckoutDetails,
+} from "../../utils/cart-checkout";
 import "./cartprice.css";
 export default function CartPrice() {
-  const { stateCart } = useCart();
-  const { cartPrice, cartDiscount } = stateCart;
+  const { cart, cartSize } = useCart();
+  const { price, discount, netAmount } = getCheckoutDetails(cart);
 
   return (
     <>
@@ -12,10 +17,10 @@ export default function CartPrice() {
           <hr></hr>
 
           <div className="total-price d-flex">
-            <span>Total MRP {`(${stateCart.cartSize} items)`} </span>
+            <span>Total MRP {`(${cartSize} items)`} </span>
             <span>
               &#x20b9;
-              {cartPrice}
+              {price}
             </span>
           </div>
 
@@ -23,7 +28,7 @@ export default function CartPrice() {
             <span>Discount on MRP</span>
             <span className="green-text">
               -&nbsp; &#x20b9;
-              {cartDiscount}
+              {discount}
             </span>
           </div>
           {/* keeping for future use, not required for now */}
@@ -42,7 +47,7 @@ export default function CartPrice() {
             <span>Net Amount</span>
             <span>
               &#x20b9;
-              {cartPrice - cartDiscount}
+              {price - discount}
             </span>
           </div>
         </div>

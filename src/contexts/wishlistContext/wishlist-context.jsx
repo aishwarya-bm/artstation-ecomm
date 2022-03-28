@@ -11,7 +11,13 @@ const WishlistProvider = ({ children }) => {
   });
   return (
     <>
-      <WishlistContext.Provider value={{ stateWishlist, dispatchWishlist }}>
+      <WishlistContext.Provider
+        value={{
+          wishlist: stateWishlist.wishlist,
+          dispatchWishlist,
+          wishlistSize: stateWishlist.wishlistSize,
+        }}
+      >
         {children}
       </WishlistContext.Provider>
     </>

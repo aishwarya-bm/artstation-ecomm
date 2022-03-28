@@ -14,10 +14,12 @@ import { useEffect } from "react";
 import { moveItemFromCartToWishlist } from "../../utils/wishlist-actions";
 
 export default function Cart() {
-  const { stateCart, dispatchCart } = useCart();
+  const { cart, cartSize, dispatchCart } = useCart();
+
   const { stateUser } = useLogin();
-  const { stateWishlist, dispatchWishlist } = useWishlist();
+  const { wishlist, dispatchWishlist } = useWishlist();
   const navigate = useNavigate();
+
   useEffect(() => getCartItems(dispatchCart, navigate), []);
   return (
     <>
@@ -26,8 +28,8 @@ export default function Cart() {
         <div className="cart-items">
           <h3 className="text-center">My Cart</h3>
           <ul className="list-no-bullet d-grid grid-gap">
-            {stateCart &&
-              stateCart.cart?.map(product => {
+            {cart &&
+              cart?.map(product => {
                 return (
                   <li key={product._id}>
                     <div className="card card-hor d-flex">
@@ -93,7 +95,7 @@ export default function Cart() {
                             onClick={() =>
                               moveItemFromCartToWishlist(
                                 product,
-                                stateWishlist,
+                                wishlist,
                                 dispatchCart,
                                 dispatchWishlist,
                                 navigate
@@ -118,10 +120,10 @@ export default function Cart() {
               })}
           </ul>
         </div>
-        {stateCart.cart.length > 0 && <CartPrice />}
+        {cartSize > 0 && <CartPrice />}
       </div>
       {stateUser.isLoggedIn ? (
-        stateCart.cartSize === 0 && (
+        cartSize === 0 && (
           <div className="text-center">
             <div>Hey, it feels so light! Lets add some items</div>
             <Link to="/productlist" className="fa fa-solid btn btn-secondary">
