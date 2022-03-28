@@ -1,9 +1,5 @@
 import { useCart } from "../../contexts/index-context";
-import {
-  calculateDiscount,
-  calculatePrice,
-  getCheckoutDetails,
-} from "../../utils/cart-checkout";
+import { getCheckoutDetails } from "../../utils/cart-checkout";
 import "./cartprice.css";
 export default function CartPrice() {
   const { cart, cartSize } = useCart();

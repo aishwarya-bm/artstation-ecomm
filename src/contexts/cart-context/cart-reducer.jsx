@@ -1,5 +1,3 @@
-import { calculateDiscount, calculatePrice } from "../../utils/cart-checkout";
-
 export const cartReducer = (state, action) => {
   switch (action.type) {
     case "GET_CART_ITEMS":
