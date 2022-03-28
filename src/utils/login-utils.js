@@ -25,9 +25,12 @@ const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAl
         localStorage.setItem("userToken", response.data.encodedToken);
         navigate("/");
       }
+      else{
+        console.log("signup incorrect status",response.status)
+      }
     } catch (err) {
+      console.log("signup catch",err)
       if (err.response && err.response.status === 422) {
-        console.log(err)
         const msg = "Email already exists, use different one."
         loginFailedActions(msg,setAlertMsg,setShowAlert)
       }
@@ -45,9 +48,10 @@ const loginUser = async (loginForm,dispatchUser,setAlertMsg,setShowAlert,navigat
       } else {
         const msg = "Incorrect username or password, try again."
         loginFailedActions(msg,setAlertMsg,setShowAlert);
+        console.log("login incorrect status",response.status)
       }
     } catch (err) {
-      console.log(err)
+      console.log("login catch",err)
       const msg = "Incorrect username or password, try again."
         loginFailedActions(msg,setAlertMsg,setShowAlert);
     }
