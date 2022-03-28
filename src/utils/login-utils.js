@@ -24,10 +24,13 @@ const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAl
         });
         localStorage.setItem("userToken", response.data.encodedToken);
         navigate("/");
-        console.log(response)
       }
-    } catch (e) {
-      if (e.response && e.response.status === 422) {
+      else{
+        console.log("signup failed with HTTP status",response.status)
+      }
+    } catch (err) {
+      console.log(err)
+      if (err.response && err.response.status === 422) {
         const msg = "Email already exists, use different one."
         loginFailedActions(msg,setAlertMsg,setShowAlert)
       }
@@ -42,12 +45,13 @@ const loginUser = async (loginForm,dispatchUser,setAlertMsg,setShowAlert,navigat
         localStorage.setItem("userToken", response.data.encodedToken);
         dispatchUser({ type: "SET_USER_LOGIN", payload: response.data.foundUser });
         navigate("/");
-        console.log(response)
       } else {
         const msg = "Incorrect username or password, try again."
         loginFailedActions(msg,setAlertMsg,setShowAlert);
+        console.log("login failed with incorrect status",response.status)
       }
     } catch (err) {
+      console.log("login failed with incorrect status",err)
       const msg = "Incorrect username or password, try again."
         loginFailedActions(msg,setAlertMsg,setShowAlert);
     }
@@ -61,9 +65,10 @@ const loginFailedActions = (msg,setAlertMsg,setShowAlert) => {
     }, 5000);
 };
 
-const signoutUser = (dispatchCart,dispatchUser) => {
+const signoutUser = (dispatchCart,dispatchWishlist,dispatchUser) => {
     localStorage.removeItem("userToken");
     dispatchCart({ type: "RESET_CART" });
+    dispatchWishlist({type:"RESET_WISHLIST"});
     dispatchUser({ type: "LOGOUT_USER" });
   };
 

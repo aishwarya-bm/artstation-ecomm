@@ -1,9 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart, useFilterProducts } from "../../contexts/index-context";
+import {
+  addToWishList,
+  removeFromWishlist,
+} from "../../utils/wishlist-actions";
+import FilterProducts from "../../components/filters/FilterProducts";
+import Header from "../../components/header/Header";
 import { addToCart } from "../../utils/cartitem-actions";
 import { compose } from "../../utils/compose";
+import {
+  useCart,
+  useFilterProducts,
+  useWishlist,
+} from "../../contexts/index-context";
 import {
   categoryProducts,
   priceLimitProducts,
@@ -11,16 +21,13 @@ import {
   searchedProducts,
   sortProducts,
 } from "../../utils/filter-by";
-import { addToWishList } from "../../utils/wishlist-actions";
-import FilterProducts from "../../components/filters/FilterProducts";
-import Header from "../../components/header/Header";
 import "./productlist.css";
 
 export default function Productlist() {
   const [products, setProducts] = useState([]);
   const { state } = useFilterProducts();
-  const { stateCart, dispatchCart } = useCart();
-  //   const { state: wishlistState, dispatch: dispatchWishlist } = useWishlist();
+  const { cart, dispatchCart } = useCart();
+  const { wishlist, dispatchWishlist } = useWishlist();
 
   const navigate = useNavigate();
 
@@ -34,7 +41,11 @@ export default function Productlist() {
   }
 
   const isProductInCart = p_id => {
-    return stateCart.cart.find(p => p._id === p_id);
+    return cart.find(p => p._id === p_id);
+  };
+
+  const isProductInWishlist = p_id => {
+    return wishlist?.find(p => p._id === p_id);
   };
   useEffect(() => getProducts(), []);
 
@@ -69,20 +80,29 @@ export default function Productlist() {
                           </a>
                           <button
                             className="far fa-heart btn card-like"
-                            onClick={() => addToWishList(prod)}
+                            onClick={() =>
+                              addToWishList(prod, dispatchWishlist, navigate)
+                            }
                           ></button>
-                          {/* will uncomment this when wishlist is implemented */}
-                          {/* {isProductInWishlist(prod._id) ? (
+                          {isProductInWishlist(prod._id) ? (
                             <button
                               className="far fa-heart btn card-like wishlist-item"
-                              onClick={() => removeFromWishlist(prod)}
+                              onClick={() =>
+                                removeFromWishlist(
+                                  prod,
+                                  dispatchWishlist,
+                                  navigate
+                                )
+                              }
                             ></button>
                           ) : (
                             <button
                               className="far fa-heart btn card-like"
-                              onClick={() => addToWishList(prod)}
+                              onClick={() =>
+                                addToWishList(prod, dispatchWishlist, navigate)
+                              }
                             ></button>
-                          )} */}
+                          )}
                         </div>
                         <a href="#">
                           <div className="card-header">

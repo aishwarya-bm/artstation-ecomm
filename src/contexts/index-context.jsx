@@ -4,6 +4,10 @@ import {
   useFilterProducts,
   FilterProductsProvider,
 } from "./filter-context/filter-context";
+import {
+  useWishlist,
+  WishlistProvider,
+} from "./wishlistContext/wishlist-context";
 
 export {
   useCart,
@@ -12,4 +16,6 @@ export {
   LoginProvider,
   useFilterProducts,
   FilterProductsProvider,
+  useWishlist,
+  WishlistProvider,
 };

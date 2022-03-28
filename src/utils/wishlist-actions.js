@@ -1,10 +1,83 @@
+import axios from "axios";
+import { addToCart, deleteFromCart, incrementCartItem } from "./cartitem-actions";
 
-  const isProductInWishlist = p_id => {}
+const getWishlistItems = async (dispatchWishlist,navigate) => {
+    try {
+      const response = await axios.get("/api/user/wishlist", {
+        headers: {
+          authorization: localStorage.getItem("userToken"),
+        },
+      });
+      if (response.status === 200) {
+        dispatchWishlist({type:"GET_WISHLIST_ITEMS", payload:response.data.wishlist})
+      } else {
+        navigate("/signup");
+      }
+    } catch (err) {
+      console.log("Please login to continue", err);
+    }
+  };
 
-  const addToWishList = async product => {}
+const addToWishList = async (product,dispatchWishlist,navigate) => {
+    try {
+      const response = await axios.post(
+        "/api/user/wishlist",
+        { product },
+        {
+          headers: {
+            authorization: localStorage.getItem("userToken"),
+          },
+        }
+      );
+      if (response.status === 201) {
+        dispatchWishlist({ type: "ADD_TO_WISHLIST", payload: response.data.wishlist });
+      }
+      else{
+          navigate("/")
+      }
+    } catch (err) {
+     console.log("Please login to continue", err);
+     navigate("/")
+    }
+  };
 
-  const removeFromWishlist = async product => {}
+const removeFromWishlist = async (product,dispatchWishlist,navigate) => {
+    const path = `/api/user/wishlist/${product._id}`;
+    try {
+      const response = await axios.delete(path, {
+        headers: {
+          authorization: localStorage.getItem("userToken"),
+        },
+      });
+      if (response.status === 200) {
+        dispatchWishlist({
+          type: "REMOVE_FROM_WISHLIST",
+          payload: response.data.wishlist,
+        });
+      }
+      else{
+          navigate("/");
+      }
+    } catch (err) {
+      console.log("Please login to continue",err)
+    }
+  };
 
-  const addWishlistItemToCart = async product => {}
+  const addWishlistItemToCart = (product,cart,dispatchCart,dispatchWishlist,navigate) => {
+    if (cart.find(p => p._id === product._id)) {
+      incrementCartItem(product, dispatchCart)       
+    } else {
+      addToCart(product, dispatchCart,navigate)
+    }
+    removeFromWishlist(product,dispatchWishlist,navigate);
+  };
 
-  export {isProductInWishlist,addToWishList,removeFromWishlist,addWishlistItemToCart}
+  const moveItemFromCartToWishlist = (product,wishlist,dispatchCart,dispatchWishlist,navigate) => {
+    deleteFromCart(product, dispatchCart)
+    if (!wishlist.find(p => p._id === product._id)) {
+      addToWishList(product,dispatchWishlist,navigate);
+    }
+  };
+
+  export {addToWishList,addWishlistItemToCart,getWishlistItems,removeFromWishlist,
+    moveItemFromCartToWishlist }

@@ -1,17 +1,26 @@
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import CartPrice from "../../components/cartprice/CartPrice";
-import { useCart, useLogin } from "../../contexts/index-context";
+import { useCart, useLogin, useWishlist } from "../../contexts/index-context";
 import "./cart.css";
 import {
   decrementCartItem,
   deleteFromCart,
+  getCartItems,
   incrementCartItem,
 } from "../../utils/cartitem-actions";
+import { useEffect } from "react";
+
+import { moveItemFromCartToWishlist } from "../../utils/wishlist-actions";
 
 export default function Cart() {
-  const { stateCart, dispatchCart } = useCart();
+  const { cart, cartSize, dispatchCart } = useCart();
+
   const { stateUser } = useLogin();
+  const { wishlist, dispatchWishlist } = useWishlist();
+  const navigate = useNavigate();
+
+  useEffect(() => getCartItems(dispatchCart, navigate), []);
   return (
     <>
       <Header />
@@ -19,8 +28,8 @@ export default function Cart() {
         <div className="cart-items">
           <h3 className="text-center">My Cart</h3>
           <ul className="list-no-bullet d-grid grid-gap">
-            {stateCart &&
-              stateCart.cart?.map(product => {
+            {cart &&
+              cart?.map(product => {
                 return (
                   <li key={product._id}>
                     <div className="card card-hor d-flex">
@@ -83,9 +92,15 @@ export default function Cart() {
                         <div className="children-stacked grid-gap">
                           <button
                             className="fa fa-solid fa-heart btn btn-secondary"
-                            // onClick={() =>
-                            //   moveFromCartToWishlist(product)
-                            // }
+                            onClick={() =>
+                              moveItemFromCartToWishlist(
+                                product,
+                                wishlist,
+                                dispatchCart,
+                                dispatchWishlist,
+                                navigate
+                              )
+                            }
                           >
                             Move to Wishlist
                           </button>
@@ -105,10 +120,10 @@ export default function Cart() {
               })}
           </ul>
         </div>
-        {stateCart.cart.length > 0 && <CartPrice />}
+        {cartSize > 0 && <CartPrice />}
       </div>
       {stateUser.isLoggedIn ? (
-        stateCart.cartSize === 0 && (
+        cartSize === 0 && (
           <div className="text-center">
             <div>Hey, it feels so light! Lets add some items</div>
             <Link to="/productlist" className="fa fa-solid btn btn-secondary">

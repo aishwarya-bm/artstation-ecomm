@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "../../components/header/Header";
 import {
   addWishlistItemToCart,
   removeFromWishlist,
 } from "../../utils/wishlist-actions";
+import { useCart, useWishlist } from "../../contexts/index-context";
+import "./wishlist.css";
 
 export default function Wishlist() {
-  const [wishlist, setWishlist] = useState([]);
+  const { wishlist, dispatchWishlist, wishlistSize } = useWishlist();
+  const { cart, dispatchCart } = useCart();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -18,7 +22,7 @@ export default function Wishlist() {
           {wishlist &&
             wishlist?.map(product => {
               return (
-                <li>
+                <li key={product._id}>
                   <div className="card children-stacked product-card">
                     <div className="card-media wishlist">
                       <a href="./product.html">
@@ -26,7 +30,13 @@ export default function Wishlist() {
                       </a>
                       <button
                         className="far fa-heart btn card-like wishlist-item"
-                        onClick={() => removeFromWishlist(product)}
+                        onClick={() =>
+                          removeFromWishlist(
+                            product,
+                            dispatchWishlist,
+                            navigate
+                          )
+                        }
                       ></button>
                     </div>
                     <a href="./product.html">
@@ -50,7 +60,15 @@ export default function Wishlist() {
                     <div className="children-stacked">
                       <button
                         className="fa fa-shopping-cart btn btn-secondary"
-                        onClick={() => addWishlistItemToCart(product)}
+                        onClick={() =>
+                          addWishlistItemToCart(
+                            product,
+                            cart,
+                            dispatchCart,
+                            dispatchWishlist,
+                            navigate
+                          )
+                        }
                       >
                         Move to cart
                       </button>
@@ -62,7 +80,7 @@ export default function Wishlist() {
         </ul>
       </div>
       {localStorage.getItem("userToken") ? (
-        wishlist.length === 0 && (
+        wishlistSize === 0 && (
           <div className="text-center">
             <div>Hey, it feels so light! Lets browse some art supplies!</div>
             <Link to="/" className="fa fa-solid btn btn-secondary">
