@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Toast({ message, type }) {
   return toast(message, {
     position: "bottom-right",
-    autoClose: 5000,
+    autoClose: 3000,
     type: type,
     transition: Slide,
     closeOnClick: true,
