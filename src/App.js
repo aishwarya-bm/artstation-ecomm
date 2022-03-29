@@ -6,6 +6,8 @@ import Wishlist from "./pages/wishlist/Wishlist";
 import Productlist from "./pages/productlist/Productlist";
 import Cart from "./pages/cart/Cart";
 import MockAPI from "./mockman/MockmanTest";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
      <Route path="/productlist/:category" element={<Productlist/>}></Route>
     <Route path="/productlist" element={<Productlist/>}></Route>
     </Routes>
+    <ToastContainer/>
     </div>
   );
 }

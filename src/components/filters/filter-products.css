@@ -2,6 +2,11 @@
     margin: 0 1rem;
 }
 
+.filter-heading-icon .btn:hover {
+    background-color: transparent;
+    cursor: auto;
+}
+
 .filter-options {
     padding: 1rem;
     height: 75vh;
@@ -28,7 +33,7 @@
 }
 
 @media only screen and (max-width:550px) {
-    aside {
-        display: none;
+    .filter-options {
+        height: 40vh;
     }
 }

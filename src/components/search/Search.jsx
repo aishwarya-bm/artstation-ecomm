@@ -4,10 +4,10 @@ export default function Search() {
   const { state, dispatch } = useFilterProducts();
   return (
     <>
-      <div className="d-flex">
+      <div className="d-flex p-rel">
         <input
           type="text"
-          placeholder="type to search for product"
+          placeholder="search for product"
           value={state.searchText}
           onChange={event =>
             dispatch({ type: "SEARCH_FOR", payload: event.target.value })
@@ -15,9 +15,10 @@ export default function Search() {
         />
         <button
           className="btn btn-link nav-btn"
+          style={{ position: "absolute", right: 0, color: "black" }}
           onClick={() => dispatch({ type: "CLEAR_SEARCHTEXT" })}
         >
-          clear
+          x
         </button>
       </div>
     </>

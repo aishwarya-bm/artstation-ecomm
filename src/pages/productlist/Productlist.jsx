@@ -41,7 +41,7 @@ export default function Productlist() {
   }
 
   const isProductInCart = p_id => {
-    return cart.find(p => p._id === p_id);
+    return cart?.find(p => p._id === p_id);
   };
 
   const isProductInWishlist = p_id => {
@@ -57,12 +57,13 @@ export default function Productlist() {
     sortProducts
   )(state, products);
 
+  const [showFilters, setShowFilters] = useState(false);
   return (
     <div>
-      <Header />
+      <Header showSearchBox={true} />
       <div className="productlist-container">
         <div className="product-grid d-grid">
-          <FilterProducts />
+          {<FilterProducts />}
           <div className="products-container">
             <div className="d-flex product-header">
               <h3 className="category-name">Products</h3>

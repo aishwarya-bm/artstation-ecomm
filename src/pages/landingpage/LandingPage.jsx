@@ -9,7 +9,7 @@ export default function LandingPage() {
   const [alertMsg, setAlertMsg] = useState("");
   return (
     <div className="signup-body">
-      <Header />
+      <Header showSearchBox={false} />
 
       <main className="signup-container children-center">
         {isSignUp ? (

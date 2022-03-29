@@ -139,7 +139,7 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
             <input
               required
               type="number"
-              placeholder="enter your password"
+              placeholder="enter your mobile number"
               name="mobile"
               value={signupForm.mobile}
               onChange={e => changeHandler(e)}

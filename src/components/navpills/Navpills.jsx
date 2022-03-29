@@ -40,12 +40,13 @@ export default function Navpills() {
             </span>
           </li>
         </ul>
-        {localStorage.userToken && (
+        {/* commented since its not yet implemented */}
+        {/* {localStorage.userToken && (
           <Link
             to="/profile"
             className="fa fa-user btn btn-link nav-btn"
           ></Link>
-        )}
+        )} */}
         {localStorage.userToken && (
           <Link to="/signup">
             <i

@@ -11,7 +11,7 @@ export default function Home() {
   const navigate = useNavigate();
   return (
     <div>
-      <Header />
+      <Header showSearchBox={false} />
 
       <main>
         <div className="p-rel">
