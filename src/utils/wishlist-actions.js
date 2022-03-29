@@ -1,4 +1,5 @@
 import axios from "axios";
+import Toast from "../components/toast/Toast";
 import { addToCart, deleteFromCart, incrementCartItem } from "./cartitem-actions";
 
 const getWishlistItems = async (dispatchWishlist,navigate) => {
@@ -14,7 +15,10 @@ const getWishlistItems = async (dispatchWishlist,navigate) => {
         navigate("/signup");
       }
     } catch (err) {
-      console.log("Please login to continue", err);
+      Toast({
+        message: "Please login to continue.",
+        type: "warning",
+      });
     }
   };
 
@@ -31,13 +35,24 @@ const addToWishList = async (product,dispatchWishlist,navigate) => {
       );
       if (response.status === 201) {
         dispatchWishlist({ type: "ADD_TO_WISHLIST", payload: response.data.wishlist });
+        Toast({
+        message: "Item added to wishlist.",
+        type: "success",
+      });
       }
       else{
-          navigate("/")
+          navigate("/signup")
+          Toast({
+        message: "Please login to continue.",
+        type: "warning",
+      });
       }
     } catch (err) {
-     console.log("Please login to continue", err);
-     navigate("/")
+     navigate("/signup")
+     Toast({
+        message: "Please login to continue.",
+        type: "warning",
+      });
     }
   };
 
@@ -54,12 +69,26 @@ const removeFromWishlist = async (product,dispatchWishlist,navigate) => {
           type: "REMOVE_FROM_WISHLIST",
           payload: response.data.wishlist,
         });
+        Toast({
+        message: "Item removed from wishlist.",
+        type: "success",
+      });
       }
       else{
-          navigate("/");
+       
+          navigate("/signup");
+           Toast({
+        message: "Please login to continue.",
+        type: "warning",
+      });
+         
       }
     } catch (err) {
-      console.log("Please login to continue",err)
+      navigate("/signup");
+      Toast({
+        message: "Please login to continue.",
+        type: "warning",
+      });
     }
   };
 

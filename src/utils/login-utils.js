@@ -1,4 +1,5 @@
 import axios from "axios";
+import Toast from "../components/toast/Toast";
 import { validateUser } from "./validate-user";
 
 const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAlertMsg,setShowAlert,navigate) => {
@@ -24,36 +25,53 @@ const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAl
         });
         localStorage.setItem("userToken", response.data.encodedToken);
         navigate("/");
+        Toast({
+        message: "Sign up successful.",
+        type: "success",
+      });
       }
       else{
+        Toast({
+        message: "Signup failed. Please try again.",
+        type: "error",
+      });
         console.log("signup failed with HTTP status",response.status)
       }
     } catch (err) {
       console.log(err)
       if (err.response && err.response.status === 422) {
-        const msg = "Email already exists, use different one."
-        loginFailedActions(msg,setAlertMsg,setShowAlert)
+        Toast({
+        message: "Email already exists, use different one.",
+        type: "error",
+      });
       }
-      
+      else
+      Toast({
+        message: "Signup failed. Please try again.",
+        type: "error",
+      });
     }
   };
 
 const loginUser = async (loginForm,dispatchUser,setAlertMsg,setShowAlert,navigate) => {
     try {
       const response = await axios.post("api/auth/login", loginForm);
-      if (response.status === 200) {
+      if (response.status === 200) {``
         localStorage.setItem("userToken", response.data.encodedToken);
         dispatchUser({ type: "SET_USER_LOGIN", payload: response.data.foundUser });
         navigate("/");
       } else {
-        const msg = "Incorrect username or password, try again."
-        loginFailedActions(msg,setAlertMsg,setShowAlert);
-        console.log("login failed with incorrect status",response.status)
+        Toast({
+        message: "Invalid credentials. Please try again.",
+        type: "error",
+      });     
       }
     } catch (err) {
-      console.log("login failed with incorrect status",err)
-      const msg = "Incorrect username or password, try again."
-        loginFailedActions(msg,setAlertMsg,setShowAlert);
+      Toast({
+        message: "Invalid credentials. Please try again.",
+        type: "error",
+      });
+      
     }
   };
 
