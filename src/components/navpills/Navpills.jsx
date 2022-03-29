@@ -4,14 +4,14 @@ import { signoutUser } from "../../utils/login-utils";
 
 export default function Navpills() {
   const { cartSize, dispatchCart } = useCart();
-  const { dispatchUser } = useLogin();
+  const { stateUser, dispatchUser } = useLogin();
   const { dispatchWishlist, wishlistSize } = useWishlist();
 
   return (
     <>
       <div className="nav-pills d-flex">
         <ul className="list list-no-bullet children-center">
-          {!localStorage.userToken && (
+          {!stateUser.isLoggedIn && (
             <li className="list-item">
               <Link to="/signup" className="btn btn-link nav-btn ">
                 LOGIN
@@ -26,7 +26,7 @@ export default function Navpills() {
               <Link to="/wishlist">
                 <i className="fa fa-solid fa-heart nav-btn"></i>
               </Link>
-              {wishlistSize > 0 && (
+              {stateUser.isLoggedIn && wishlistSize > 0 && (
                 <span className="badge">{wishlistSize}</span>
               )}
             </span>
@@ -36,7 +36,9 @@ export default function Navpills() {
               <Link to="/cart">
                 <i className="fa fa-shopping-cart nav-btn"></i>
               </Link>
-              {cartSize > 0 && <span className="badge">{cartSize}</span>}
+              {stateUser.isLoggedIn && cartSize > 0 && (
+                <span className="badge">{cartSize}</span>
+              )}
             </span>
           </li>
         </ul>
@@ -47,7 +49,7 @@ export default function Navpills() {
             className="fa fa-user btn btn-link nav-btn"
           ></Link>
         )} */}
-        {localStorage.userToken && (
+        {stateUser.isLoggedIn && (
           <Link to="/signup">
             <i
               className="fa fas fa-sign-out-alt btn btn-link nav-btn"

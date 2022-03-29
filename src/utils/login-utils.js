@@ -85,8 +85,6 @@ const loginFailedActions = (msg,setAlertMsg,setShowAlert) => {
 
 const signoutUser = (dispatchCart,dispatchWishlist,dispatchUser) => {
     localStorage.removeItem("userToken");
-    dispatchCart({ type: "RESET_CART" });
-    dispatchWishlist({type:"RESET_WISHLIST"});
     dispatchUser({ type: "LOGOUT_USER" });
   };
 
