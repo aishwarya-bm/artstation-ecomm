@@ -6,24 +6,19 @@ import "./cart.css";
 import {
   decrementCartItem,
   deleteFromCart,
-  getCartItems,
   incrementCartItem,
 } from "../../utils/cartitem-actions";
-import { useEffect } from "react";
-
 import { moveItemFromCartToWishlist } from "../../utils/wishlist-actions";
 
 export default function Cart() {
   const { cart, cartSize, dispatchCart } = useCart();
-
   const { stateUser } = useLogin();
   const { wishlist, dispatchWishlist } = useWishlist();
   const navigate = useNavigate();
 
-  useEffect(() => getCartItems(dispatchCart, navigate), []);
   return (
     <>
-      <Header />
+      <Header showSearchBox={false} />
       <div className="cart-container d-flex">
         <div className="cart-items">
           <h3 className="text-center">My Cart</h3>

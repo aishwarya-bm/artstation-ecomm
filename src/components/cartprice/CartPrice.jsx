@@ -1,5 +1,6 @@
 import { useCart } from "../../contexts/index-context";
 import { getCheckoutDetails } from "../../utils/cart-checkout";
+import Toast from "../toast/Toast";
 import "./cartprice.css";
 export default function CartPrice() {
   const { cart, cartSize } = useCart();
@@ -47,7 +48,17 @@ export default function CartPrice() {
             </span>
           </div>
         </div>
-        <button className="btn btn-success">Place order</button>
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            Toast({
+              message: "Your order is placed successfully.",
+              type: "success",
+            });
+          }}
+        >
+          Place order
+        </button>
       </div>
     </>
   );

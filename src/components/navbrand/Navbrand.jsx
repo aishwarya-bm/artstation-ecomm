@@ -5,7 +5,6 @@ export default function Navbrand() {
   return (
     <>
       <div className="nav-brand d-flex">
-        <button className="fa fa-bars btn btn-link nav-btn btn-modal-alert"></button>
         <Link to="/">
           <div className="nav-title d-flex">
             <span className="letter-1">A</span>

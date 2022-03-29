@@ -15,7 +15,7 @@ export default function Wishlist() {
 
   return (
     <>
-      <Header />
+      <Header showSearchBox={false} />
       <div className="wishlist-container">
         <h3 className="text-center">My wishlist</h3>
         <ul className="product-wishlist list-no-bullet d-grid grid-gap">
@@ -83,7 +83,7 @@ export default function Wishlist() {
         wishlistSize === 0 && (
           <div className="text-center">
             <div>Hey, it feels so light! Lets browse some art supplies!</div>
-            <Link to="/" className="fa fa-solid btn btn-secondary">
+            <Link to="/productlist" className="fa fa-solid btn btn-secondary">
               Shop now
             </Link>{" "}
           </div>

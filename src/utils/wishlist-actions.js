@@ -15,10 +15,7 @@ const getWishlistItems = async (dispatchWishlist,navigate) => {
         navigate("/signup");
       }
     } catch (err) {
-      Toast({
-        message: "Please login to continue.",
-        type: "warning",
-      });
+      console.log("Request failed with error",err)
     }
   };
 

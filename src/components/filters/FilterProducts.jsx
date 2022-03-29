@@ -12,7 +12,9 @@ export default function FilterProducts() {
     <>
       <aside className="filter-container">
         <div className="filter-head d-flex">
-          <h5>Filters</h5>
+          <div className="filter-heading-icon">
+            <span className="fa fa-solid fa-filter btn btn-link">FILTERS</span>
+          </div>
           <button
             className="btn btn-link"
             onClick={() =>
