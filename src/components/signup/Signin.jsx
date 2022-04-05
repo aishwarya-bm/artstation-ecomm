@@ -39,7 +39,7 @@ export function Signin({ setIsSignUp }) {
           <div className="d-grid">
             <label>
               Email
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -53,7 +53,7 @@ export function Signin({ setIsSignUp }) {
           <div className="d-grid p-rel">
             <label>
               Password
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -66,15 +66,13 @@ export function Signin({ setIsSignUp }) {
             {showPassword ? (
               <button
                 disabled={loginForm.password ? false : true}
-                className="fa fa-solid fa-eye btn btn-link"
-                style={{ position: "absolute", right: "0px", top: "20px" }}
+                className="fa fa-solid fa-eye btn btn-link p-abs password-eye"
                 onClick={e => toggleShowPassword(e)}
               ></button>
             ) : (
               <button
                 disabled={loginForm.password ? false : true}
-                className="fa fa-solid fa-eye-slash btn btn-link"
-                style={{ position: "absolute", right: "0px", top: "20px" }}
+                className="fa fa-solid fa-eye-slash btn btn-link p-abs password-eye"
                 onClick={e => toggleShowPassword(e)}
               ></button>
             )}

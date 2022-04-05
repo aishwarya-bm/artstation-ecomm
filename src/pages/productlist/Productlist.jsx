@@ -75,9 +75,7 @@ export function Productlist() {
                     <li key={prod._id}>
                       <div className="card children-stacked product-card">
                         <div className="card-media">
-                          <a href="#">
-                            <img src={prod.product_img} alt="card-img" />
-                          </a>
+                          <img src={prod.product_img} alt="card-img" />
                           <button
                             className="far fa-heart btn card-like"
                             onClick={() =>
@@ -104,11 +102,9 @@ export function Productlist() {
                             ></button>
                           )}
                         </div>
-                        <a href="#">
-                          <div className="card-header">
-                            <div className="card-title">{prod.title}</div>
-                          </div>
-                        </a>
+                        <div className="card-header">
+                          <div className="card-title">{prod.title}</div>
+                        </div>
                         <div className="card-content d-flex grid-gap">
                           <div>
                             <span className="curr-price">

@@ -27,9 +27,7 @@ export function Wishlist() {
                 <li key={product._id}>
                   <div className="card children-stacked product-card">
                     <div className="card-media wishlist">
-                      <a href="./product.html">
-                        <img src={product.product_img} alt="card-img" />
-                      </a>
+                      <img src={product.product_img} alt="card-img" />
                       <button
                         className="far fa-heart btn card-like wishlist-item"
                         onClick={() =>
@@ -41,11 +39,9 @@ export function Wishlist() {
                         }
                       ></button>
                     </div>
-                    <a href="./product.html">
-                      <div className="card-header">
-                        <div className="card-title">{product.title}</div>
-                      </div>
-                    </a>
+                    <div className="card-header">
+                      <div className="card-title">{product.title}</div>
+                    </div>
                     <div className="card-content d-flex grid-gap">
                       <div>
                         <span className="curr-price">

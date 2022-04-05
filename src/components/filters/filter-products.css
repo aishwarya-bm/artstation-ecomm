@@ -32,6 +32,10 @@
     font-size: .65rem;
 }
 
+.price-range-wide{
+    width: 100%;
+}
+
 @media only screen and (max-width:550px) {
     .filter-options {
         height: 40vh;

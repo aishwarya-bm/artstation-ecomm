@@ -54,7 +54,7 @@ export function Signup({ setIsSignUp }) {
           <div className="d-grid">
             <label htmlFor="firstname">
               First name
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -69,7 +69,7 @@ export function Signup({ setIsSignUp }) {
           <div className="d-grid">
             <label htmlFor="lastname">
               Last name
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -84,7 +84,7 @@ export function Signup({ setIsSignUp }) {
           <div className="d-grid">
             <label>
               Email
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -101,7 +101,7 @@ export function Signup({ setIsSignUp }) {
           <div className="d-grid p-rel">
             <label>
               Password
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -114,15 +114,13 @@ export function Signup({ setIsSignUp }) {
             {showPassword ? (
               <button
                 disabled={signupForm.password ? false : true}
-                className="fa fa-solid fa-eye btn btn-link"
-                style={{ position: "absolute", right: "0px", top: "20px" }}
+                className="fa fa-solid fa-eye btn btn-link p-abs password-eye"
                 onClick={e => toggleShowPassword(e)}
               ></button>
             ) : (
               <button
                 disabled={signupForm.password ? false : true}
-                className="fa fa-solid fa-eye-slash btn btn-link"
-                style={{ position: "absolute", right: "0px", top: "20px" }}
+                className="fa fa-solid fa-eye-slash btn btn-link p-abs password-eye"
                 onClick={e => toggleShowPassword(e)}
               ></button>
             )}
@@ -131,7 +129,7 @@ export function Signup({ setIsSignUp }) {
           <div className="d-grid">
             <label>
               Mobile
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
