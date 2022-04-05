@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
+// NOTE: This is not being used anywhere
 export default function useAxios() {
   const [response, setResponse] = useState([]);
   const [err, setErr] = useState([]);
@@ -11,7 +12,6 @@ export default function useAxios() {
         setResponse(response);
       } else if (method === "get") {
         const response = await axios.get(url, { headers: header });
-        console.log("await", response);
         setResponse(response);
       }
     } catch (err) {

@@ -32,10 +32,19 @@ export function Productlist() {
 
   async function getProducts() {
     try {
-      const { data } = await axios.get("/api/products");
-      setProducts(() => data.products);
+      const { data, status } = await axios.get("/api/products");
+      if (status === 200) setProducts(() => data.products);
+      else {
+        Toast({
+          message: "Some error occured, please try again later",
+          type: "error",
+        });
+      }
     } catch (e) {
-      console.log("error", e);
+      Toast({
+        message: "Some error occured, please try again later",
+        type: "error",
+      });
     }
   }
 

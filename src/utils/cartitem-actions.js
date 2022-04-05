@@ -126,7 +126,6 @@ const getCartItems = async (dispatchCart,navigate) => {
 
       if (response.status === 200) {
         dispatchCart({type:"GET_CART_ITEMS",payload:response.data.cart})
-        console.log("fetched cart")
       } else {
         navigate("/signup");
         Toast({
@@ -135,7 +134,10 @@ const getCartItems = async (dispatchCart,navigate) => {
       });
       }
     } catch (err) {
-      console.log("Request failed with error",err)
+      Toast({
+        message: "Please login to continue.",
+        type: "warning",
+      });
     }
     
   };
