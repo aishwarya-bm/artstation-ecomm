@@ -4,7 +4,7 @@ import { useLogin } from "../../contexts/index-context";
 import "./signup.css";
 import { loginUser } from "../../utils/login-utils";
 
-export function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
+export function Signin({ setIsSignUp }) {
   const { dispatchUser } = useLogin();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +28,7 @@ export function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
 
   const handleLoginSubmit = e => {
     e.preventDefault();
-    loginUser(loginForm, dispatchUser, setAlertMsg, setShowAlert, navigate);
+    loginUser(loginForm, dispatchUser, navigate);
   };
 
   return (

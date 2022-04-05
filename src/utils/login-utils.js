@@ -2,7 +2,7 @@ import axios from "axios";
 import {Toast} from "../components";
 import { validateUser } from "./validate-user";
 
-const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAlertMsg,setShowAlert,navigate) => {
+const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,navigate) => {
     const userErrors = validateUser(signupForm.mobile, signupForm.email);
     setUserErr(userErrors);
     if (userErrors["phone"] || userErrors["email"]) {
@@ -53,7 +53,7 @@ const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAl
     }
   };
 
-const loginUser = async (loginForm,dispatchUser,setAlertMsg,setShowAlert,navigate) => {
+const loginUser = async (loginForm,dispatchUser,navigate) => {
     try {
       const response = await axios.post("api/auth/login", loginForm);
       if (response.status === 200) {``
@@ -79,17 +79,9 @@ const loginUser = async (loginForm,dispatchUser,setAlertMsg,setShowAlert,navigat
     }
   };
 
-const loginFailedActions = (msg,setAlertMsg,setShowAlert) => {
-    setAlertMsg(msg);
-    setShowAlert(true);
-    setTimeout(() => {
-        setShowAlert(false);
-    }, 5000);
-};
-
 const signoutUser = (dispatchUser) => {
     localStorage.removeItem("userToken");
     dispatchUser({ type: "LOGOUT_USER" });
   };
 
-export {createUser,loginUser,loginFailedActions,signoutUser}
+export {createUser,loginUser,signoutUser}

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { createUser } from "../../utils/login-utils";
 import "./signup.css";
 
-export function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
+export function Signup({ setIsSignUp }) {
   const { dispatchUser } = useLogin();
   const [userErr, setUserErr] = useState({
     phone: "",
@@ -38,8 +38,7 @@ export function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
       setUserErr,
       setSignupForm,
       dispatchUser,
-      setAlertMsg,
-      setShowAlert,
+
       navigate
     );
   };
