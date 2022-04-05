@@ -1,9 +1,7 @@
-import Navbrand from "../navbrand/Navbrand";
-import Navpills from "../navpills/Navpills";
-import Search from "../search/Search";
+import { Navbrand, Navpills, Search } from "../index";
 import "./header.css";
 
-export default function Header({ showSearchBox }) {
+export function Header({ showSearchBox }) {
   return (
     <div>
       <nav className="nav-container d-flex">

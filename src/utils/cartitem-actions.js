@@ -1,5 +1,5 @@
 import axios from "axios";
-import Toast from "../components/toast/Toast";
+import {Toast} from "../components";
 
 const addToCart = async (product, dispatchCart,navigate) => {
   try {

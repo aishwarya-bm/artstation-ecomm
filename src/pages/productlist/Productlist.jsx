@@ -5,8 +5,7 @@ import {
   addToWishList,
   removeFromWishlist,
 } from "../../utils/wishlist-actions";
-import FilterProducts from "../../components/filters/FilterProducts";
-import Header from "../../components/header/Header";
+import { FilterProducts, Header } from "../../components";
 import { addToCart } from "../../utils/cartitem-actions";
 import { compose } from "../../utils/compose";
 import {
@@ -23,7 +22,7 @@ import {
 } from "../../utils/filter-by";
 import "./productlist.css";
 
-export default function Productlist() {
+export function Productlist() {
   const [products, setProducts] = useState([]);
   const { state } = useFilterProducts();
   const { cart, dispatchCart } = useCart();

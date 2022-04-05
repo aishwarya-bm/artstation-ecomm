@@ -1,6 +1,4 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { getWishlistItems } from "../../utils/wishlist-actions";
 import { wishlistReducer } from "./wishlist-reducer";
 
 const WishlistContext = createContext();
@@ -10,8 +8,7 @@ const WishlistProvider = ({ children }) => {
     wishlist: [],
     wishlistSize: 0,
   });
-  const navigate = useNavigate();
-  useEffect(() => getWishlistItems(dispatchWishlist, navigate), []);
+
   return (
     <>
       <WishlistContext.Provider

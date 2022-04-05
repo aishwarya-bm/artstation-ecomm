@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { useCart, useLogin, useWishlist } from "../../contexts/index-context";
 import { signoutUser } from "../../utils/login-utils";
 
-export default function Navpills() {
-  const { cartSize, dispatchCart } = useCart();
+export function Navpills() {
+  const { cartSize } = useCart();
   const { stateUser, dispatchUser } = useLogin();
-  const { dispatchWishlist, wishlistSize } = useWishlist();
+  const { wishlistSize } = useWishlist();
 
   return (
     <>
@@ -53,9 +53,7 @@ export default function Navpills() {
           <Link to="/signup">
             <i
               className="fa fas fa-sign-out-alt btn btn-link nav-btn"
-              onClick={() =>
-                signoutUser(dispatchCart, dispatchWishlist, dispatchUser)
-              }
+              onClick={() => signoutUser(dispatchUser)}
             ></i>
           </Link>
         )}

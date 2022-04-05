@@ -4,7 +4,7 @@ import axios from "axios";
 import "./categories.css";
 import { useFilterProducts } from "../../contexts/index-context";
 
-export default function Categories() {
+export function Categories() {
   const [categories, setCategories] = useState([]);
   const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();
   const getCategories = async () => {

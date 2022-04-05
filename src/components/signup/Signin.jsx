@@ -4,7 +4,7 @@ import { useLogin } from "../../contexts/index-context";
 import "./signup.css";
 import { loginUser } from "../../utils/login-utils";
 
-export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
+export function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
   const { dispatchUser } = useLogin();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);

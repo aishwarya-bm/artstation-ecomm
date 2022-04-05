@@ -1,21 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../../components/header/Header";
-import CartPrice from "../../components/cartprice/CartPrice";
 import { useCart, useLogin, useWishlist } from "../../contexts/index-context";
 import "./cart.css";
+import { useEffect } from "react";
 import {
+  getCartItems,
   decrementCartItem,
   deleteFromCart,
   incrementCartItem,
 } from "../../utils/cartitem-actions";
 import { moveItemFromCartToWishlist } from "../../utils/wishlist-actions";
+import { CartPrice, Header } from "../../components";
 
-export default function Cart() {
+export function Cart() {
   const { cart, cartSize, dispatchCart } = useCart();
   const { stateUser } = useLogin();
   const { wishlist, dispatchWishlist } = useWishlist();
   const navigate = useNavigate();
-
+  useEffect(() => getCartItems(dispatchCart, navigate), []);
   return (
     <>
       <Header showSearchBox={false} />

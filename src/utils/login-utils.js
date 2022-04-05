@@ -1,5 +1,5 @@
 import axios from "axios";
-import Toast from "../components/toast/Toast";
+import {Toast} from "../components";
 import { validateUser } from "./validate-user";
 
 const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAlertMsg,setShowAlert,navigate) => {
@@ -60,6 +60,10 @@ const loginUser = async (loginForm,dispatchUser,setAlertMsg,setShowAlert,navigat
         localStorage.setItem("userToken", response.data.encodedToken);
         dispatchUser({ type: "SET_USER_LOGIN", payload: response.data.foundUser });
         navigate("/");
+        Toast({
+        message: "Signed in successfully.",
+        type: "success",
+      });
       } else {
         Toast({
         message: "Invalid credentials. Please try again.",
@@ -83,7 +87,7 @@ const loginFailedActions = (msg,setAlertMsg,setShowAlert) => {
     }, 5000);
 };
 
-const signoutUser = (dispatchCart,dispatchWishlist,dispatchUser) => {
+const signoutUser = (dispatchUser) => {
     localStorage.removeItem("userToken");
     dispatchUser({ type: "LOGOUT_USER" });
   };

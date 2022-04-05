@@ -1,17 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
+import { Header } from "../../components";
 import { useEffect } from "react";
-import Header from "../../components/header/Header";
 import {
   addWishlistItemToCart,
   removeFromWishlist,
+  getWishlistItems,
 } from "../../utils/wishlist-actions";
 import { useCart, useWishlist } from "../../contexts/index-context";
 import "./wishlist.css";
 
-export default function Wishlist() {
+export function Wishlist() {
   const { wishlist, dispatchWishlist, wishlistSize } = useWishlist();
   const { cart, dispatchCart } = useCart();
   const navigate = useNavigate();
+  useEffect(() => getWishlistItems(dispatchWishlist, navigate), []);
 
   return (
     <>

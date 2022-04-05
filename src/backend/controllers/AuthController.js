@@ -14,7 +14,6 @@ const jwt = require("jsonwebtoken");
  * send POST Request at /api/auth/signup
  * body contains {firstName, lastName, email, password}
  * */
-
 export const signupHandler = function (schema, request) {
   const { email, password, ...rest } = JSON.parse(request.requestBody);
   try {

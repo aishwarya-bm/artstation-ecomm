@@ -1,6 +1,6 @@
 import { useFilterProducts } from "../../contexts/index-context";
 
-export default function Search() {
+export function Search() {
   const { state, dispatch } = useFilterProducts();
   return (
     <>

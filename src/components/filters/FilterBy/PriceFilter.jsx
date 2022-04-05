@@ -1,6 +1,6 @@
 import { useFilterProducts } from "../../../contexts/filter-context/filter-context";
 
-export default function PriceFilter() {
+export function PriceFilter() {
   const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();
   return (
     <>

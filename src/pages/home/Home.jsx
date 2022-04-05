@@ -1,12 +1,11 @@
 import "../../App.css";
 import homepage from "../../assets/homepage.jpg";
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/header/Header";
-import Categories from "../../components/categories/Categories";
+import { Header, Categories } from "../../components";
 import "./home.css";
 import { useFilterProducts } from "../../contexts/filter-context/filter-context";
 
-export default function Home() {
+export function Home() {
   const { dispatch: dispatchFilter } = useFilterProducts();
   const navigate = useNavigate();
   return (

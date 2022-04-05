@@ -1,5 +1,5 @@
 import axios from "axios";
-import Toast from "../components/toast/Toast";
+import {Toast} from "../components";
 import { addToCart, deleteFromCart, incrementCartItem } from "./cartitem-actions";
 
 const getWishlistItems = async (dispatchWishlist,navigate) => {

@@ -1,9 +1,7 @@
 import { useState } from "react";
-import Header from "../../components/header/Header";
-import Signin from "../../components/signup/Signin";
-import Signup from "../../components/signup/Signup";
+import { Header, Signin, Signup } from "../../components";
 
-export default function LandingPage() {
+export function LandingPage() {
   const [showAlert, setShowAlert] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");

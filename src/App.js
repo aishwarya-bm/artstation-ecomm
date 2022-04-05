@@ -1,10 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import LandingPage from "./pages/landingpage/LandingPage";
-import Home from "./pages/home/Home";
-import Wishlist from "./pages/wishlist/Wishlist";
-import Productlist from "./pages/productlist/Productlist";
-import Cart from "./pages/cart/Cart";
+import {LandingPage,Home,Wishlist,Productlist,Cart} from "./pages/";
 import MockAPI from "./mockman/MockmanTest";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';

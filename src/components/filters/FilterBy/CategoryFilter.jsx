@@ -1,6 +1,6 @@
 import { useFilterProducts } from "../../../contexts/index-context";
 
-export default function CategoryFilter() {
+export function CategoryFilter() {
   const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();
   return (
     <>

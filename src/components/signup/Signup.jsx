@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useLogin } from "../../contexts/login-context/login-context";
 import { useNavigate } from "react-router-dom";
-import { validateUser } from "../../utils/validate-user";
-import "./signup.css";
-import axios from "axios";
 import { createUser } from "../../utils/login-utils";
+import "./signup.css";
 
-export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
+export function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
   const { dispatchUser } = useLogin();
   const [userErr, setUserErr] = useState({
     phone: "",
