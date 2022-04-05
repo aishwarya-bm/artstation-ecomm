@@ -18,81 +18,79 @@ export function Wishlist() {
   return (
     <>
       <Header showSearchBox={false} />
-      <div className="wishlist-container">
-        <h3 className="text-center">My wishlist</h3>
-        <ul className="product-wishlist list-no-bullet d-grid grid-gap">
-          {wishlist &&
-            wishlist?.map(product => {
-              return (
-                <li key={product._id}>
-                  <div className="card children-stacked product-card">
-                    <div className="card-media wishlist">
-                      <img src={product.product_img} alt="card-img" />
-                      <button
-                        className="far fa-heart btn card-like wishlist-item"
-                        onClick={() =>
-                          removeFromWishlist(
-                            product,
-                            dispatchWishlist,
-                            navigate
-                          )
-                        }
-                      ></button>
-                    </div>
-                    <div className="card-header">
-                      <div className="card-title">{product.title}</div>
-                    </div>
-                    <div className="card-content d-flex grid-gap">
-                      <div>
-                        <span className="curr-price">
-                          ₹ {product.curr_price}
-                        </span>
-                        <span className="prev-price text-linethrough">
-                          ₹{product.orig_price}
-                        </span>
-                      </div>
-                      <div className="product-rating">
-                        <i className="fa fa-solid fa-star"></i> {product.rating}
-                      </div>
-                    </div>
-                    <div className="children-stacked">
-                      <button
-                        className="fa fa-shopping-cart btn btn-secondary"
-                        onClick={() =>
-                          addWishlistItemToCart(
-                            product,
-                            cart,
-                            dispatchCart,
-                            dispatchWishlist,
-                            navigate
-                          )
-                        }
-                      >
-                        Move to cart
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-        </ul>
-      </div>
-      {localStorage.getItem("userToken") ? (
-        wishlistSize === 0 && (
-          <div className="text-center">
-            <div>Hey, it feels so light! Lets browse some art supplies!</div>
-            <Link to="/productlist" className="fa fa-solid btn btn-secondary">
-              Shop now
-            </Link>{" "}
+      {wishlistSize === 0 ? (
+        <div className="text-center empty-wishlist">
+          <div>Hey, it feels so light! Lets browse some art supplies!</div>
+          <div className="d-flex children-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9SlfydsMiQ0ZwKRFReUC0KwzuFXVW6P1LZA&usqp=CAU" />
           </div>
-        )
-      ) : (
-        <div className="text-center">
-          Please sign in to continue
-          <Link to="/signup" className="fa fa-solid btn btn-secondary">
-            LOGIN
+          <Link to="/productlist" className="fa fa-solid btn btn-secondary">
+            Browse
           </Link>
         </div>
+      ) : (
+        <>
+          <div className="wishlist-container">
+            <h3 className="text-center">My wishlist</h3>
+            <ul className="product-wishlist list-no-bullet d-grid grid-gap">
+              {wishlist &&
+                wishlist?.map(product => {
+                  return (
+                    <li key={product._id}>
+                      <div className="card children-stacked product-card">
+                        <div className="card-media wishlist">
+                          <img src={product.product_img} alt="card-img" />
+                          <button
+                            className="far fa-heart btn card-like wishlist-item"
+                            onClick={() =>
+                              removeFromWishlist(
+                                product,
+                                dispatchWishlist,
+                                navigate
+                              )
+                            }
+                          ></button>
+                        </div>
+                        <div className="card-header">
+                          <div className="card-title">{product.title}</div>
+                        </div>
+                        <div className="card-content d-flex grid-gap">
+                          <div>
+                            <span className="curr-price">
+                              ₹ {product.curr_price}
+                            </span>
+                            <span className="prev-price text-linethrough">
+                              ₹{product.orig_price}
+                            </span>
+                          </div>
+                          <div className="product-rating">
+                            <i className="fa fa-solid fa-star"></i>{" "}
+                            {product.rating}
+                          </div>
+                        </div>
+                        <div className="children-stacked">
+                          <button
+                            className="fa fa-shopping-cart btn btn-secondary"
+                            onClick={() =>
+                              addWishlistItemToCart(
+                                product,
+                                cart,
+                                dispatchCart,
+                                dispatchWishlist,
+                                navigate
+                              )
+                            }
+                          >
+                            Move to cart
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        </>
       )}
     </>
   );

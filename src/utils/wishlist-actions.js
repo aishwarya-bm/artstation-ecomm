@@ -19,9 +19,10 @@ const getWishlistItems = async (dispatchWishlist,navigate) => {
       });
       }
     } catch (err) {
+      navigate("/signup")
        Toast({
-        message: "Some error occured, please login to continue",
-        type: "error",
+        message: "Please login to continue",
+        type: "warning",
       });
     }
   };

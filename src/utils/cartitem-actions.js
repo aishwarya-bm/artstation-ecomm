@@ -134,6 +134,7 @@ const getCartItems = async (dispatchCart,navigate) => {
       });
       }
     } catch (err) {
+      navigate("/signup");
       Toast({
         message: "Please login to continue.",
         type: "warning",

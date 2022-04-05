@@ -4,14 +4,14 @@ import { signoutUser } from "../../utils/login-utils";
 
 export function Navpills() {
   const { cartSize } = useCart();
-  const { stateUser, dispatchUser } = useLogin();
+  const { stateUser, dispatchUser, isLoggedIn } = useLogin();
   const { wishlistSize } = useWishlist();
 
   return (
     <>
       <div className="nav-pills d-flex">
         <ul className="list list-no-bullet children-center">
-          {!stateUser.isLoggedIn && (
+          {!isLoggedIn && (
             <li className="list-item">
               <Link to="/signup" className="btn btn-link nav-btn ">
                 LOGIN
@@ -26,7 +26,7 @@ export function Navpills() {
               <Link to="/wishlist">
                 <i className="fa fa-solid fa-heart nav-btn"></i>
               </Link>
-              {stateUser.isLoggedIn && wishlistSize > 0 && (
+              {isLoggedIn && wishlistSize > 0 && (
                 <span className="badge">{wishlistSize}</span>
               )}
             </span>
@@ -36,7 +36,7 @@ export function Navpills() {
               <Link to="/cart">
                 <i className="fa fa-shopping-cart nav-btn"></i>
               </Link>
-              {stateUser.isLoggedIn && cartSize > 0 && (
+              {isLoggedIn && cartSize > 0 && (
                 <span className="badge">{cartSize}</span>
               )}
             </span>
@@ -49,7 +49,7 @@ export function Navpills() {
             className="fa fa-user btn btn-link nav-btn"
           ></Link>
         )} */}
-        {stateUser.isLoggedIn && (
+        {isLoggedIn && (
           <Link to="/signup">
             <i
               className="fa fas fa-sign-out-alt btn btn-link nav-btn"
