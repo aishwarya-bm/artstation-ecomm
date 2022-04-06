@@ -8,6 +8,9 @@
     font-weight: 600;
 }
 
+.empty-cart{
+    margin-top: 5rem;
+}
 @media only screen and (max-width:550px) {
     .cart-container {
         flex-direction: column-reverse;

@@ -4,7 +4,7 @@ import { useLogin } from "../../contexts/index-context";
 import "./signup.css";
 import { loginUser } from "../../utils/login-utils";
 
-export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
+export function Signin({ setIsSignUp }) {
   const { dispatchUser } = useLogin();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +28,7 @@ export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
 
   const handleLoginSubmit = e => {
     e.preventDefault();
-    loginUser(loginForm, dispatchUser, setAlertMsg, setShowAlert, navigate);
+    loginUser(loginForm, dispatchUser, navigate);
   };
 
   return (
@@ -39,7 +39,7 @@ export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
           <div className="d-grid">
             <label>
               Email
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -53,7 +53,7 @@ export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
           <div className="d-grid p-rel">
             <label>
               Password
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -66,15 +66,13 @@ export default function Signin({ setIsSignUp, setShowAlert, setAlertMsg }) {
             {showPassword ? (
               <button
                 disabled={loginForm.password ? false : true}
-                className="fa fa-solid fa-eye btn btn-link"
-                style={{ position: "absolute", right: "0px", top: "20px" }}
+                className="fa fa-solid fa-eye btn btn-link p-abs password-eye"
                 onClick={e => toggleShowPassword(e)}
               ></button>
             ) : (
               <button
                 disabled={loginForm.password ? false : true}
-                className="fa fa-solid fa-eye-slash btn btn-link"
-                style={{ position: "absolute", right: "0px", top: "20px" }}
+                className="fa fa-solid fa-eye-slash btn btn-link p-abs password-eye"
                 onClick={e => toggleShowPassword(e)}
               ></button>
             )}

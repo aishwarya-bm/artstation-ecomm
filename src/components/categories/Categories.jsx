@@ -4,15 +4,25 @@ import axios from "axios";
 import "./categories.css";
 import { useFilterProducts } from "../../contexts/index-context";
 
-export default function Categories() {
+export function Categories() {
   const [categories, setCategories] = useState([]);
   const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();
   const getCategories = async () => {
     try {
-      const { data } = await axios.get("/api/categories");
-      setCategories(() => data.categories);
+      const { data, status } = await axios.get("/api/categories");
+      if (status === 200) {
+        setCategories(() => data.categories);
+      } else {
+        Toast({
+          message: "Some error occured, please try again later",
+          type: "error",
+        });
+      }
     } catch (e) {
-      console.log("error occured", e);
+      Toast({
+        message: "Some error occured, please try again later",
+        type: "error",
+      });
     }
   };
   useEffect(() => getCategories(), []);

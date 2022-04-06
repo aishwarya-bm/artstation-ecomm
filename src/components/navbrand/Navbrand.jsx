@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./navbrand.css";
 
-export default function Navbrand() {
+export function Navbrand() {
   return (
     <>
       <div className="nav-brand d-flex">

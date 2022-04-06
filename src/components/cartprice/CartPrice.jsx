@@ -1,8 +1,8 @@
 import { useCart } from "../../contexts/index-context";
 import { getCheckoutDetails } from "../../utils/cart-checkout";
-import Toast from "../toast/Toast";
+import { Toast } from "../index";
 import "./cartprice.css";
-export default function CartPrice() {
+export function CartPrice() {
   const { cart, cartSize } = useCart();
   const { price, discount, netAmount } = getCheckoutDetails(cart);
 

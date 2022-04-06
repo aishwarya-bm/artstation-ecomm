@@ -25,6 +25,11 @@ input[type="number"] {
     border-radius: 2px;
 }
 
+.password-eye{
+    right: 0;
+    top: 20px
+}
+
 .fa-eye:hover,
 .fa-eye-slash:hover {
     background-color: transparent;

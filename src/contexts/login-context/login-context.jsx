@@ -17,6 +17,7 @@ const LoginProvider = ({ children }) => {
         value={{
           stateUser,
           dispatchUser,
+          isLoggedIn: stateUser.isLoggedIn,
         }}
       >
         {children}

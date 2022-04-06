@@ -1,5 +1,5 @@
 import axios from "axios";
-import Toast from "../components/toast/Toast";
+import {Toast} from "../components";
 
 const addToCart = async (product, dispatchCart,navigate) => {
   try {
@@ -126,7 +126,6 @@ const getCartItems = async (dispatchCart,navigate) => {
 
       if (response.status === 200) {
         dispatchCart({type:"GET_CART_ITEMS",payload:response.data.cart})
-        console.log("fetched cart")
       } else {
         navigate("/signup");
         Toast({
@@ -135,7 +134,11 @@ const getCartItems = async (dispatchCart,navigate) => {
       });
       }
     } catch (err) {
-      console.log("Request failed with error",err)
+      navigate("/signup");
+      Toast({
+        message: "Please login to continue.",
+        type: "warning",
+      });
     }
     
   };

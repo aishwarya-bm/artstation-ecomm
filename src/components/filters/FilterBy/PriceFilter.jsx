@@ -1,12 +1,13 @@
 import { useFilterProducts } from "../../../contexts/filter-context/filter-context";
+import "../filter-products.css";
 
-export default function PriceFilter() {
+export function PriceFilter() {
   const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();
   return (
     <>
       <h5>Price</h5>
       <div className="children-stacked">
-        <div style={{ width: "100%" }}>
+        <div className="price-range-wide">
           <input
             name="priceLimit"
             type="range"

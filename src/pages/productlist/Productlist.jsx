@@ -5,8 +5,7 @@ import {
   addToWishList,
   removeFromWishlist,
 } from "../../utils/wishlist-actions";
-import FilterProducts from "../../components/filters/FilterProducts";
-import Header from "../../components/header/Header";
+import { FilterProducts, Header } from "../../components";
 import { addToCart } from "../../utils/cartitem-actions";
 import { compose } from "../../utils/compose";
 import {
@@ -23,7 +22,7 @@ import {
 } from "../../utils/filter-by";
 import "./productlist.css";
 
-export default function Productlist() {
+export function Productlist() {
   const [products, setProducts] = useState([]);
   const { state } = useFilterProducts();
   const { cart, dispatchCart } = useCart();
@@ -33,10 +32,19 @@ export default function Productlist() {
 
   async function getProducts() {
     try {
-      const { data } = await axios.get("/api/products");
-      setProducts(() => data.products);
+      const { data, status } = await axios.get("/api/products");
+      if (status === 200) setProducts(() => data.products);
+      else {
+        Toast({
+          message: "Some error occured, please try again later",
+          type: "error",
+        });
+      }
     } catch (e) {
-      console.log("error", e);
+      Toast({
+        message: "Some error occured, please try again later",
+        type: "error",
+      });
     }
   }
 
@@ -76,9 +84,7 @@ export default function Productlist() {
                     <li key={prod._id}>
                       <div className="card children-stacked product-card">
                         <div className="card-media">
-                          <a href="#">
-                            <img src={prod.product_img} alt="card-img" />
-                          </a>
+                          <img src={prod.product_img} alt="card-img" />
                           <button
                             className="far fa-heart btn card-like"
                             onClick={() =>
@@ -105,11 +111,9 @@ export default function Productlist() {
                             ></button>
                           )}
                         </div>
-                        <a href="#">
-                          <div className="card-header">
-                            <div className="card-title">{prod.title}</div>
-                          </div>
-                        </a>
+                        <div className="card-header">
+                          <div className="card-title">{prod.title}</div>
+                        </div>
                         <div className="card-content d-flex grid-gap">
                           <div>
                             <span className="curr-price">

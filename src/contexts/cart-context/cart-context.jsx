@@ -1,6 +1,4 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
-import { getCartItems } from "../../utils/cartitem-actions";
 import { cartReducer } from "./cart-reducer";
 
 const CartContext = createContext();
@@ -12,9 +10,7 @@ const CartProvider = ({ children }) => {
     cartPrice: 0,
     cartDiscount: 0,
   });
-  const navigate = useNavigate();
 
-  useEffect(() => getCartItems(dispatchCart, navigate), []);
   return (
     <>
       <CartContext.Provider

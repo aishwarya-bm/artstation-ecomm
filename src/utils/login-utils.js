@@ -1,8 +1,8 @@
 import axios from "axios";
-import Toast from "../components/toast/Toast";
+import {Toast} from "../components";
 import { validateUser } from "./validate-user";
 
-const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAlertMsg,setShowAlert,navigate) => {
+const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,navigate) => {
     const userErrors = validateUser(signupForm.mobile, signupForm.email);
     setUserErr(userErrors);
     if (userErrors["phone"] || userErrors["email"]) {
@@ -35,10 +35,8 @@ const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAl
         message: "Signup failed. Please try again.",
         type: "error",
       });
-        console.log("signup failed with HTTP status",response.status)
       }
     } catch (err) {
-      console.log(err)
       if (err.response && err.response.status === 422) {
         Toast({
         message: "Email already exists, use different one.",
@@ -53,13 +51,17 @@ const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,setAl
     }
   };
 
-const loginUser = async (loginForm,dispatchUser,setAlertMsg,setShowAlert,navigate) => {
+const loginUser = async (loginForm,dispatchUser,navigate) => {
     try {
       const response = await axios.post("api/auth/login", loginForm);
       if (response.status === 200) {``
         localStorage.setItem("userToken", response.data.encodedToken);
         dispatchUser({ type: "SET_USER_LOGIN", payload: response.data.foundUser });
         navigate("/");
+        Toast({
+        message: "Signed in successfully.",
+        type: "success",
+      });
       } else {
         Toast({
         message: "Invalid credentials. Please try again.",
@@ -75,19 +77,9 @@ const loginUser = async (loginForm,dispatchUser,setAlertMsg,setShowAlert,navigat
     }
   };
 
-const loginFailedActions = (msg,setAlertMsg,setShowAlert) => {
-    setAlertMsg(msg);
-    setShowAlert(true);
-    setTimeout(() => {
-        setShowAlert(false);
-    }, 5000);
-};
-
-const signoutUser = (dispatchCart,dispatchWishlist,dispatchUser) => {
+const signoutUser = (dispatchUser) => {
     localStorage.removeItem("userToken");
-    dispatchCart({ type: "RESET_CART" });
-    dispatchWishlist({type:"RESET_WISHLIST"});
     dispatchUser({ type: "LOGOUT_USER" });
   };
 
-export {createUser,loginUser,loginFailedActions,signoutUser}
+export {createUser,loginUser,signoutUser}

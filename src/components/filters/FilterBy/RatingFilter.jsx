@@ -1,6 +1,6 @@
 import { useFilterProducts } from "../../../contexts/index-context";
 
-export default function RatingFilter() {
+export function RatingFilter() {
   const { state: stateFilter, dispatch: dispatchFilter } = useFilterProducts();
   return (
     <>
@@ -13,7 +13,7 @@ export default function RatingFilter() {
               id="fourplus"
               name="fourplus"
               value="fourplus"
-              checked={stateFilter.rating === 4 ? true : false}
+              checked={stateFilter.rating === 4}
               onChange={() => dispatchFilter({ type: "RATING", payload: 4 })}
             />
             4 stars & above
@@ -25,7 +25,7 @@ export default function RatingFilter() {
               type="radio"
               id="threeplus"
               name="threeplus"
-              checked={stateFilter.rating === 3 ? true : false}
+              checked={stateFilter.rating === 3}
               onChange={() => dispatchFilter({ type: "RATING", payload: 3 })}
             />
             3 stars & above
@@ -37,7 +37,7 @@ export default function RatingFilter() {
               type="radio"
               id="twoplus"
               name="twoplus"
-              checked={stateFilter.rating === 2 ? true : false}
+              checked={stateFilter.rating === 2}
               onChange={() => dispatchFilter({ type: "RATING", payload: 2 })}
             />
             2 stars & above
@@ -49,7 +49,7 @@ export default function RatingFilter() {
               type="radio"
               id="oneplus"
               name="oneplus"
-              checked={stateFilter.rating === 1 ? true : false}
+              checked={stateFilter.rating === 1}
               onChange={() => dispatchFilter({ type: "RATING", payload: 1 })}
             />
             1 stars & above

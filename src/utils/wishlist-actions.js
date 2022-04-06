@@ -1,5 +1,5 @@
 import axios from "axios";
-import Toast from "../components/toast/Toast";
+import {Toast} from "../components";
 import { addToCart, deleteFromCart, incrementCartItem } from "./cartitem-actions";
 
 const getWishlistItems = async (dispatchWishlist,navigate) => {
@@ -13,9 +13,17 @@ const getWishlistItems = async (dispatchWishlist,navigate) => {
         dispatchWishlist({type:"GET_WISHLIST_ITEMS", payload:response.data.wishlist})
       } else {
         navigate("/signup");
+        Toast({
+        message: "Please login to continue",
+        type: "error",
+      });
       }
     } catch (err) {
-      console.log("Request failed with error",err)
+      navigate("/signup")
+       Toast({
+        message: "Please login to continue",
+        type: "warning",
+      });
     }
   };
 

@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useLogin } from "../../contexts/login-context/login-context";
 import { useNavigate } from "react-router-dom";
-import { validateUser } from "../../utils/validate-user";
-import "./signup.css";
-import axios from "axios";
 import { createUser } from "../../utils/login-utils";
+import "./signup.css";
 
-export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
+export function Signup({ setIsSignUp }) {
   const { dispatchUser } = useLogin();
   const [userErr, setUserErr] = useState({
     phone: "",
@@ -40,8 +38,7 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
       setUserErr,
       setSignupForm,
       dispatchUser,
-      setAlertMsg,
-      setShowAlert,
+
       navigate
     );
   };
@@ -57,7 +54,7 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
           <div className="d-grid">
             <label htmlFor="firstname">
               First name
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -72,7 +69,7 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
           <div className="d-grid">
             <label htmlFor="lastname">
               Last name
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -87,7 +84,7 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
           <div className="d-grid">
             <label>
               Email
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -104,7 +101,7 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
           <div className="d-grid p-rel">
             <label>
               Password
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required
@@ -117,15 +114,13 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
             {showPassword ? (
               <button
                 disabled={signupForm.password ? false : true}
-                className="fa fa-solid fa-eye btn btn-link"
-                style={{ position: "absolute", right: "0px", top: "20px" }}
+                className="fa fa-solid fa-eye btn btn-link p-abs password-eye"
                 onClick={e => toggleShowPassword(e)}
               ></button>
             ) : (
               <button
                 disabled={signupForm.password ? false : true}
-                className="fa fa-solid fa-eye-slash btn btn-link"
-                style={{ position: "absolute", right: "0px", top: "20px" }}
+                className="fa fa-solid fa-eye-slash btn btn-link p-abs password-eye"
                 onClick={e => toggleShowPassword(e)}
               ></button>
             )}
@@ -134,7 +129,7 @@ export default function Signup({ setShowAlert, setIsSignUp, setAlertMsg }) {
           <div className="d-grid">
             <label>
               Mobile
-              <span style={{ color: "red" }}>*</span>
+              <span className="red-text">*</span>
             </label>
             <input
               required

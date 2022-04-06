@@ -1,6 +1,6 @@
 import { useFilterProducts } from "../../contexts/index-context";
-
-export default function Search() {
+import "./search.css";
+export function Search() {
   const { state, dispatch } = useFilterProducts();
   return (
     <>
@@ -14,8 +14,7 @@ export default function Search() {
           }
         />
         <button
-          className="btn btn-link nav-btn"
-          style={{ position: "absolute", right: 0, color: "black" }}
+          className="btn btn-link nav-btn p-abs search-close"
           onClick={() => dispatch({ type: "CLEAR_SEARCHTEXT" })}
         >
           x
