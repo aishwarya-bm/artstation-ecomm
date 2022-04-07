@@ -1,8 +1,13 @@
 import axios from "axios";
-import {Toast} from "../components";
-import { addToCart, deleteFromCart, incrementCartItem } from "./cartitem-actions";
+import { Toast } from "../components";
+import {
+  addToCart,
+  deleteFromCart,
+  incrementCartItem,
+} from "./cartitem-actions";
 
-const getWishlistItems = async (dispatchWishlist,navigate) => {
+const getWishlistItems = async (isLoggedIn, dispatchWishlist, navigate) => {
+  if (isLoggedIn) {
     try {
       const response = await axios.get("/api/user/wishlist", {
         headers: {
@@ -10,24 +15,38 @@ const getWishlistItems = async (dispatchWishlist,navigate) => {
         },
       });
       if (response.status === 200) {
-        dispatchWishlist({type:"GET_WISHLIST_ITEMS", payload:response.data.wishlist})
+        dispatchWishlist({
+          type: "GET_WISHLIST_ITEMS",
+          payload: response.data.wishlist,
+        });
       } else {
-        navigate("/signup");
         Toast({
-        message: "Please login to continue",
-        type: "error",
-      });
+          message: "Some error occured, please try again later.",
+          type: "error",
+        });
       }
     } catch (err) {
-      navigate("/signup")
-       Toast({
-        message: "Please login to continue",
-        type: "warning",
+      Toast({
+        message: "Some error occured, please try again later.",
+        type: "error",
       });
     }
-  };
+  } else {
+    navigate("/signup");
+    Toast({
+      message: "Please login to continue",
+      type: "warning",
+    });
+  }
+};
 
-const addToWishList = async (product,dispatchWishlist,navigate) => {
+const addToWishList = async (
+  isLoggedIn,
+  product,
+  dispatchWishlist,
+  navigate
+) => {
+  if (isLoggedIn) {
     try {
       const response = await axios.post(
         "/api/user/wishlist",
@@ -39,29 +58,42 @@ const addToWishList = async (product,dispatchWishlist,navigate) => {
         }
       );
       if (response.status === 201) {
-        dispatchWishlist({ type: "ADD_TO_WISHLIST", payload: response.data.wishlist });
+        dispatchWishlist({
+          type: "ADD_TO_WISHLIST",
+          payload: response.data.wishlist,
+        });
         Toast({
-        message: "Item added to wishlist.",
-        type: "success",
-      });
-      }
-      else{
-          navigate("/signup")
-          Toast({
-        message: "Please login to continue.",
-        type: "warning",
-      });
+          message: "Item added to wishlist.",
+          type: "success",
+        });
+      } else {
+        Toast({
+          message: "Some error occured, please try again later.",
+          type: "error",
+        });
       }
     } catch (err) {
-     navigate("/signup")
-     Toast({
-        message: "Please login to continue.",
-        type: "warning",
+      Toast({
+        message: "Some error occured, please try again later.",
+        type: "error",
       });
     }
-  };
+  } else {
+    navigate("/signup");
+    Toast({
+      message: "Please login to continue.",
+      type: "warning",
+    });
+  }
+};
 
-const removeFromWishlist = async (product,dispatchWishlist,navigate) => {
+const removeFromWishlist = async (
+  isLoggedIn,
+  product,
+  dispatchWishlist,
+  navigate
+) => {
+  if (isLoggedIn) {
     const path = `/api/user/wishlist/${product._id}`;
     try {
       const response = await axios.delete(path, {
@@ -75,43 +107,80 @@ const removeFromWishlist = async (product,dispatchWishlist,navigate) => {
           payload: response.data.wishlist,
         });
         Toast({
-        message: "Item removed from wishlist.",
-        type: "success",
-      });
-      }
-      else{
-       
-          navigate("/signup");
-           Toast({
-        message: "Please login to continue.",
-        type: "warning",
-      });
-         
+          message: "Item removed from wishlist.",
+          type: "success",
+        });
+      } else {
+        Toast({
+          message: "Some error occured, please try again later.",
+          type: "error",
+        });
       }
     } catch (err) {
-      navigate("/signup");
       Toast({
-        message: "Please login to continue.",
-        type: "warning",
+        message: "Some error occured, please try again later.",
+        type: "error",
       });
     }
-  };
+  } else {
+    navigate("/signup");
+    Toast({
+      message: "Please login to continue.",
+      type: "warning",
+    });
+  }
+};
 
-  const addWishlistItemToCart = (product,cart,dispatchCart,dispatchWishlist,navigate) => {
+const addWishlistItemToCart = (
+  isLoggedIn,
+  product,
+  cart,
+  dispatchCart,
+  dispatchWishlist,
+  navigate
+) => {
+  if (isLoggedIn) {
     if (cart.find(p => p._id === product._id)) {
-      incrementCartItem(product, dispatchCart)       
+      incrementCartItem(true, product, dispatchCart);
     } else {
-      addToCart(product, dispatchCart,navigate)
+      addToCart(true, product, dispatchCart, navigate);
     }
-    removeFromWishlist(product,dispatchWishlist,navigate);
-  };
+    removeFromWishlist(true, product, dispatchWishlist, navigate);
+  } else {
+    navigate("/signup");
+    Toast({
+      message: "Please login to continue.",
+      type: "warning",
+    });
+  }
+};
 
-  const moveItemFromCartToWishlist = (product,wishlist,dispatchCart,dispatchWishlist,navigate) => {
-    deleteFromCart(product, dispatchCart)
+const moveItemFromCartToWishlist = (
+  isLoggedIn,
+  product,
+  wishlist,
+  dispatchCart,
+  dispatchWishlist,
+  navigate
+) => {
+  if (isLoggedIn) {
+    deleteFromCart(true, product, dispatchCart);
     if (!wishlist.find(p => p._id === product._id)) {
-      addToWishList(product,dispatchWishlist,navigate);
+      addToWishList(true, product, dispatchWishlist, navigate);
     }
-  };
+  } else {
+    navigate("/signup");
+    Toast({
+      message: "Please login to continue.",
+      type: "warning",
+    });
+  }
+};
 
-  export {addToWishList,addWishlistItemToCart,getWishlistItems,removeFromWishlist,
-    moveItemFromCartToWishlist }
+export {
+  addToWishList,
+  addWishlistItemToCart,
+  getWishlistItems,
+  removeFromWishlist,
+  moveItemFromCartToWishlist,
+};

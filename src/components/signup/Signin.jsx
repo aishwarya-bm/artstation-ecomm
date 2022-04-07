@@ -84,6 +84,18 @@ export function Signin({ setIsSignUp }) {
         </form>
         <button
           className="btn btn-link create-account-link"
+          onClick={() =>
+            loginUser(
+              { email: "test@gmail.com", password: "test" },
+              dispatchUser,
+              navigate
+            )
+          }
+        >
+          <span className="green-text"> Login with test credentials </span>
+        </button>
+        <button
+          className="btn btn-link create-account-link"
           onClick={() => {
             setIsSignUp(true);
           }}

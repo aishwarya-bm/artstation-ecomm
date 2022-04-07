@@ -13,10 +13,10 @@ import { CartPrice, Header } from "../../components";
 
 export function Cart() {
   const { cart, cartSize, dispatchCart } = useCart();
-  const { stateUser } = useLogin();
+  const { isLoggedIn } = useLogin();
   const { wishlist, dispatchWishlist } = useWishlist();
   const navigate = useNavigate();
-  useEffect(() => getCartItems(dispatchCart, navigate), []);
+  useEffect(() => getCartItems(isLoggedIn, dispatchCart, navigate), []);
   return (
     <>
       <Header showSearchBox={false} />
@@ -69,7 +69,11 @@ export function Cart() {
                               <button
                                 className="btn btn-link"
                                 onClick={() =>
-                                  deleteFromCart(product, dispatchCart)
+                                  deleteFromCart(
+                                    isLoggedIn,
+                                    product,
+                                    dispatchCart
+                                  )
                                 }
                               >
                                 <i className="fa fa-solid fa-trash"></i>
@@ -78,7 +82,11 @@ export function Cart() {
                               <button
                                 className="btn btn-link"
                                 onClick={() =>
-                                  decrementCartItem(product, dispatchCart)
+                                  decrementCartItem(
+                                    isLoggedIn,
+                                    product,
+                                    dispatchCart
+                                  )
                                 }
                               >
                                 <i className="fa fa-solid fa-minus"></i>
@@ -94,7 +102,11 @@ export function Cart() {
                             <button
                               className="btn btn-link"
                               onClick={() =>
-                                incrementCartItem(product, dispatchCart)
+                                incrementCartItem(
+                                  isLoggedIn,
+                                  product,
+                                  dispatchCart
+                                )
                               }
                             >
                               <i className="fa fa-solid fa-plus"></i>
@@ -105,6 +117,7 @@ export function Cart() {
                               className="fa fa-solid fa-heart btn btn-secondary"
                               onClick={() =>
                                 moveItemFromCartToWishlist(
+                                  isLoggedIn,
                                   product,
                                   wishlist,
                                   dispatchCart,
@@ -118,7 +131,11 @@ export function Cart() {
                             <button
                               className="fa fa-shopping-cart btn btn-light"
                               onClick={() =>
-                                deleteFromCart(product, dispatchCart)
+                                deleteFromCart(
+                                  isLoggedIn,
+                                  product,
+                                  dispatchCart
+                                )
                               }
                             >
                               Remove from cart

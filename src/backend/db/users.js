@@ -16,7 +16,7 @@ export const users = [
     password: bcyrpt.hashSync("adarshBalika123", 5),
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    mobile:"1111111111"
+    mobile: "1111111111",
   },
   {
     _id: uuid(),
@@ -26,7 +26,7 @@ export const users = [
     password: bcyrpt.hashSync("johnDoe123", 5),
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    mobile:"1111111111"
+    mobile: "1111111111",
   },
   {
     _id: uuid(),
@@ -36,7 +36,7 @@ export const users = [
     password: bcyrpt.hashSync("adarshBalaki123", 5),
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    mobile:"1111111111"
+    mobile: "1111111111",
   },
   {
     _id: uuid(),
@@ -46,6 +46,16 @@ export const users = [
     password: bcyrpt.hashSync("aish", 5),
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    mobile:"1111111111"
+    mobile: "1111111111",
+  },
+  {
+    _id: uuid(),
+    firstName: "Aish",
+    lastName: "Balak",
+    email: "test@gmail.com",
+    password: bcyrpt.hashSync("test", 5),
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    mobile: "1111111111",
   },
 ];

@@ -6,14 +6,15 @@ import {
   removeFromWishlist,
   getWishlistItems,
 } from "../../utils/wishlist-actions";
-import { useCart, useWishlist } from "../../contexts/index-context";
+import { useCart, useLogin, useWishlist } from "../../contexts/index-context";
 import "./wishlist.css";
 
 export function Wishlist() {
   const { wishlist, dispatchWishlist, wishlistSize } = useWishlist();
   const { cart, dispatchCart } = useCart();
+  const { isLoggedIn } = useLogin();
   const navigate = useNavigate();
-  useEffect(() => getWishlistItems(dispatchWishlist, navigate), []);
+  useEffect(() => getWishlistItems(isLoggedIn, dispatchWishlist, navigate), []);
 
   return (
     <>
@@ -44,6 +45,7 @@ export function Wishlist() {
                             className="far fa-heart btn card-like wishlist-item"
                             onClick={() =>
                               removeFromWishlist(
+                                isLoggedIn,
                                 product,
                                 dispatchWishlist,
                                 navigate
@@ -73,6 +75,7 @@ export function Wishlist() {
                             className="fa fa-shopping-cart btn btn-secondary"
                             onClick={() =>
                               addWishlistItemToCart(
+                                isLoggedIn,
                                 product,
                                 cart,
                                 dispatchCart,
