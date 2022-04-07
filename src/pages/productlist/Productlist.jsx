@@ -11,6 +11,7 @@ import { compose } from "../../utils/compose";
 import {
   useCart,
   useFilterProducts,
+  useLogin,
   useWishlist,
 } from "../../contexts/index-context";
 import {
@@ -27,7 +28,7 @@ export function Productlist() {
   const { state } = useFilterProducts();
   const { cart, dispatchCart } = useCart();
   const { wishlist, dispatchWishlist } = useWishlist();
-
+  const { isLoggedIn } = useLogin();
   const navigate = useNavigate();
 
   async function getProducts() {
@@ -88,7 +89,12 @@ export function Productlist() {
                           <button
                             className="far fa-heart btn card-like"
                             onClick={() =>
-                              addToWishList(prod, dispatchWishlist, navigate)
+                              addToWishList(
+                                isLoggedIn,
+                                prod,
+                                dispatchWishlist,
+                                navigate
+                              )
                             }
                           ></button>
                           {isProductInWishlist(prod._id) ? (
@@ -96,6 +102,7 @@ export function Productlist() {
                               className="far fa-heart btn card-like wishlist-item"
                               onClick={() =>
                                 removeFromWishlist(
+                                  isLoggedIn,
                                   prod,
                                   dispatchWishlist,
                                   navigate
@@ -106,7 +113,12 @@ export function Productlist() {
                             <button
                               className="far fa-heart btn card-like"
                               onClick={() =>
-                                addToWishList(prod, dispatchWishlist, navigate)
+                                addToWishList(
+                                  isLoggedIn,
+                                  prod,
+                                  dispatchWishlist,
+                                  navigate
+                                )
                               }
                             ></button>
                           )}
@@ -142,7 +154,12 @@ export function Productlist() {
                             <button
                               className="fa fa-shopping-cart btn btn-secondary"
                               onClick={() =>
-                                addToCart(prod, dispatchCart, navigate)
+                                addToCart(
+                                  isLoggedIn,
+                                  prod,
+                                  dispatchCart,
+                                  navigate
+                                )
                               }
                             >
                               Add to cart
