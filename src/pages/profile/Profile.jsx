@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { Header } from "../../components";
 import "./profile.css";
 
 export function Profile() {
+  useEffect(() => {
+    document.title = `Profile | Art station`;
+  }, []);
   return (
     <>
       <Header />

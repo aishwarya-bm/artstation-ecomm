@@ -2,7 +2,7 @@ import axios from "axios";
 import {Toast} from "../components";
 import { validateUser } from "./validate-user";
 
-const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,navigate) => {
+const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,navigate, location) => {
     const userErrors = validateUser(signupForm.mobile, signupForm.email);
     setUserErr(userErrors);
     if (userErrors["phone"] || userErrors["email"]) {
@@ -24,7 +24,7 @@ const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,navig
           payload: response.data.createdUser,
         });
         localStorage.setItem("userToken", response.data.encodedToken);
-        navigate("/");
+        navigate(location?.state?.from?.pathname || "/");
         Toast({
         message: "Sign up successful.",
         type: "success",
@@ -51,13 +51,13 @@ const createUser = async (signupForm,setUserErr,setSignupForm,dispatchUser,navig
     }
   };
 
-const loginUser = async (loginForm,dispatchUser,navigate) => {
+const loginUser = async (loginForm,dispatchUser,navigate,location) => {
     try {
       const response = await axios.post("api/auth/login", loginForm);
       if (response.status === 200) {``
         localStorage.setItem("userToken", response.data.encodedToken);
         dispatchUser({ type: "SET_USER_LOGIN", payload: response.data.foundUser });
-        navigate("/");
+        navigate(location?.state?.from?.pathname || "/");
         Toast({
         message: "Signed in successfully.",
         type: "success",

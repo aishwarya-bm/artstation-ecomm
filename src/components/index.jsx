@@ -8,6 +8,7 @@ export { FilterProducts } from "./filters/FilterProducts";
 export { Header } from "./header/Header";
 export { Navbrand } from "./navbrand/Navbrand";
 export { Navpills } from "./navpills/Navpills";
+export { RequiresAuth } from "./requiresAuth/RequiresAuth";
 export { Search } from "./search/Search";
 export { Signin } from "./signup/Signin";
 export { Signup } from "./signup/Signup";

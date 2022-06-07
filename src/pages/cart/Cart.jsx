@@ -2,12 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCart, useLogin, useWishlist } from "../../contexts/index-context";
 import "./cart.css";
 import { useEffect } from "react";
-import {
-  getCartItems,
-  decrementCartItem,
-  deleteFromCart,
-  incrementCartItem,
-} from "../../utils/cartitem-actions";
+import { getCartItems, decrementCartItem, deleteFromCart, incrementCartItem } from "../../utils/cartitem-actions";
 import { moveItemFromCartToWishlist } from "../../utils/wishlist-actions";
 import { CartPrice, Header } from "../../components";
 
@@ -17,6 +12,10 @@ export function Cart() {
   const { wishlist, dispatchWishlist } = useWishlist();
   const navigate = useNavigate();
   useEffect(() => getCartItems(isLoggedIn, dispatchCart, navigate), []);
+
+  useEffect(() => {
+    document.title = "Cart | Art station";
+  }, []);
   return (
     <>
       <Header showSearchBox={false} />
@@ -25,10 +24,7 @@ export function Cart() {
           <div>Hey, it feels so light! Lets add some items</div>
 
           <div className="d-flex children-center">
-            <img
-              src="https://cobblersmagic.com/images/empty-cart.png"
-              alt="empty-cart"
-            />
+            <img src="https://cobblersmagic.com/images/empty-cart.png" alt="empty-cart" />
           </div>
           <Link to="/productlist" className="fa fa-solid btn btn-secondary">
             Shop now
@@ -44,51 +40,28 @@ export function Cart() {
                   return (
                     <li key={product._id}>
                       <div className="card card-hor d-flex">
-                        <img
-                          className="card-media"
-                          src={product.product_img}
-                          alt="image"
-                        />
+                        <img className="card-media" src={product.product_img} alt="image" />
                         <div className="card-data children-stacked p-rel">
                           <div className="card-title">{product.title}</div>
                           <span className="product-rating">
-                            <i className="fa fa-solid fa-star"></i>{" "}
-                            {product.rating}
+                            <i className="fa fa-solid fa-star"></i> {product.rating}
                           </span>
                           <div className="d-flex grid-gap product-price">
-                            <span className="curr-price text-green">
-                              ₹{product.curr_price}
-                            </span>
-                            <span className="prev-price text-linethrough">
-                              ₹{product.orig_price}
-                            </span>
+                            <span className="curr-price text-green">₹{product.curr_price}</span>
+                            <span className="prev-price text-linethrough">₹{product.orig_price}</span>
                           </div>
 
                           <div className="btn-counter d-flex">
                             {product.qty === 1 ? (
                               <button
                                 className="btn btn-link"
-                                onClick={() =>
-                                  deleteFromCart(
-                                    isLoggedIn,
-                                    product,
-                                    dispatchCart
-                                  )
-                                }
-                              >
+                                onClick={() => deleteFromCart(isLoggedIn, product, dispatchCart)}>
                                 <i className="fa fa-solid fa-trash"></i>
                               </button>
                             ) : (
                               <button
                                 className="btn btn-link"
-                                onClick={() =>
-                                  decrementCartItem(
-                                    isLoggedIn,
-                                    product,
-                                    dispatchCart
-                                  )
-                                }
-                              >
+                                onClick={() => decrementCartItem(isLoggedIn, product, dispatchCart)}>
                                 <i className="fa fa-solid fa-minus"></i>
                               </button>
                             )}
@@ -101,14 +74,7 @@ export function Cart() {
                             />
                             <button
                               className="btn btn-link"
-                              onClick={() =>
-                                incrementCartItem(
-                                  isLoggedIn,
-                                  product,
-                                  dispatchCart
-                                )
-                              }
-                            >
+                              onClick={() => incrementCartItem(isLoggedIn, product, dispatchCart)}>
                               <i className="fa fa-solid fa-plus"></i>
                             </button>
                           </div>
@@ -124,20 +90,12 @@ export function Cart() {
                                   dispatchWishlist,
                                   navigate
                                 )
-                              }
-                            >
+                              }>
                               Move to Wishlist
                             </button>
                             <button
                               className="fa fa-shopping-cart btn btn-light"
-                              onClick={() =>
-                                deleteFromCart(
-                                  isLoggedIn,
-                                  product,
-                                  dispatchCart
-                                )
-                              }
-                            >
+                              onClick={() => deleteFromCart(isLoggedIn, product, dispatchCart)}>
                               Remove from cart
                             </button>
                           </div>

@@ -124,18 +124,10 @@ export const updateCartItemHandler = function (schema, request) {
         if (product._id === productId) {
           product.qty += 1;
           product.updatedAt = formatDate();
-          // product = {...product,qty : product.qty+1,updatedAt:formatDate()}
         }
       });
     } 
 
-    // updatedAt:formatDate() not working
-    // if (action.type === "increment") {
-    //   userCart = userCart.map((product) => {
-    //     return (product._id === productId ? ({...product,qty : product.qty+1}) : product)
-    //     }
-    //   )
-    // }
     else if (action.type === "decrement") {
       userCart.forEach((product) => {
         if (product._id === productId) {

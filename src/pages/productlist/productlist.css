@@ -39,11 +39,6 @@
     justify-items: center;
     padding: 1rem;
 }
-/* 
-.price-range {
-    justify-content: space-between;
-    font-size: .75rem;
-} */
 
 .curr-price {
     font-size: larger;
@@ -100,10 +95,6 @@
         border: 1px solid var(--contrast-light);
     }
  
-    /*aside {
-        display: none;
-    } */
-
     .nav-container .btn-modal-alert {
         display: block;
     }

@@ -1,19 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  addToWishList,
-  removeFromWishlist,
-} from "../../utils/wishlist-actions";
+import { addToWishList, removeFromWishlist } from "../../utils/wishlist-actions";
 import { FilterProducts, Header } from "../../components";
 import { addToCart } from "../../utils/cartitem-actions";
 import { compose } from "../../utils/compose";
-import {
-  useCart,
-  useFilterProducts,
-  useLogin,
-  useWishlist,
-} from "../../contexts/index-context";
+import { useCart, useFilterProducts, useLogin, useWishlist } from "../../contexts/index-context";
 import {
   categoryProducts,
   priceLimitProducts,
@@ -57,6 +49,9 @@ export function Productlist() {
     return wishlist?.find(p => p._id === p_id);
   };
   useEffect(() => getProducts(), []);
+  useEffect(() => {
+    document.title = `Products | Art station`;
+  }, []);
 
   const filterProducts = compose(
     searchedProducts,
@@ -88,39 +83,15 @@ export function Productlist() {
                           <img src={prod.product_img} alt="card-img" />
                           <button
                             className="far fa-heart btn card-like"
-                            onClick={() =>
-                              addToWishList(
-                                isLoggedIn,
-                                prod,
-                                dispatchWishlist,
-                                navigate
-                              )
-                            }
-                          ></button>
+                            onClick={() => addToWishList(isLoggedIn, prod, dispatchWishlist, navigate)}></button>
                           {isProductInWishlist(prod._id) ? (
                             <button
                               className="far fa-heart btn card-like wishlist-item"
-                              onClick={() =>
-                                removeFromWishlist(
-                                  isLoggedIn,
-                                  prod,
-                                  dispatchWishlist,
-                                  navigate
-                                )
-                              }
-                            ></button>
+                              onClick={() => removeFromWishlist(isLoggedIn, prod, dispatchWishlist, navigate)}></button>
                           ) : (
                             <button
                               className="far fa-heart btn card-like"
-                              onClick={() =>
-                                addToWishList(
-                                  isLoggedIn,
-                                  prod,
-                                  dispatchWishlist,
-                                  navigate
-                                )
-                              }
-                            ></button>
+                              onClick={() => addToWishList(isLoggedIn, prod, dispatchWishlist, navigate)}></button>
                           )}
                         </div>
                         <div className="card-header">
@@ -128,16 +99,11 @@ export function Productlist() {
                         </div>
                         <div className="card-content d-flex grid-gap">
                           <div>
-                            <span className="curr-price">
-                              ₹{prod.curr_price}
-                            </span>
-                            <span className="prev-price text-linethrough">
-                              ₹{prod.orig_price}
-                            </span>
+                            <span className="curr-price">₹{prod.curr_price}</span>
+                            <span className="prev-price text-linethrough">₹{prod.orig_price}</span>
                           </div>
                           <div className="product-rating">
-                            <i className="fa fa-solid fa-star"></i>{" "}
-                            {prod.rating}
+                            <i className="fa fa-solid fa-star"></i> {prod.rating}
                           </div>
                         </div>
                         <div className="children-stacked">
@@ -146,22 +112,13 @@ export function Productlist() {
                               className="fa fa-shopping-cart btn btn-light"
                               onClick={() => {
                                 navigate("/cart");
-                              }}
-                            >
+                              }}>
                               Go to cart
                             </button>
                           ) : (
                             <button
                               className="fa fa-shopping-cart btn btn-secondary"
-                              onClick={() =>
-                                addToCart(
-                                  isLoggedIn,
-                                  prod,
-                                  dispatchCart,
-                                  navigate
-                                )
-                              }
-                            >
+                              onClick={() => addToCart(isLoggedIn, prod, dispatchCart, navigate)}>
                               Add to cart
                             </button>
                           )}

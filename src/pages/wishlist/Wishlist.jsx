@@ -1,11 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../../components";
 import { useEffect } from "react";
-import {
-  addWishlistItemToCart,
-  removeFromWishlist,
-  getWishlistItems,
-} from "../../utils/wishlist-actions";
+import { addWishlistItemToCart, removeFromWishlist, getWishlistItems } from "../../utils/wishlist-actions";
 import { useCart, useLogin, useWishlist } from "../../contexts/index-context";
 import "./wishlist.css";
 
@@ -15,6 +11,9 @@ export function Wishlist() {
   const { isLoggedIn } = useLogin();
   const navigate = useNavigate();
   useEffect(() => getWishlistItems(isLoggedIn, dispatchWishlist, navigate), []);
+  useEffect(() => {
+    document.title = `Wishlist | Art station`;
+  }, []);
 
   return (
     <>
@@ -44,46 +43,27 @@ export function Wishlist() {
                           <button
                             className="far fa-heart btn card-like wishlist-item"
                             onClick={() =>
-                              removeFromWishlist(
-                                isLoggedIn,
-                                product,
-                                dispatchWishlist,
-                                navigate
-                              )
-                            }
-                          ></button>
+                              removeFromWishlist(isLoggedIn, product, dispatchWishlist, navigate)
+                            }></button>
                         </div>
                         <div className="card-header">
                           <div className="card-title">{product.title}</div>
                         </div>
                         <div className="card-content d-flex grid-gap">
                           <div>
-                            <span className="curr-price">
-                              ₹ {product.curr_price}
-                            </span>
-                            <span className="prev-price text-linethrough">
-                              ₹{product.orig_price}
-                            </span>
+                            <span className="curr-price">₹ {product.curr_price}</span>
+                            <span className="prev-price text-linethrough">₹{product.orig_price}</span>
                           </div>
                           <div className="product-rating">
-                            <i className="fa fa-solid fa-star"></i>{" "}
-                            {product.rating}
+                            <i className="fa fa-solid fa-star"></i> {product.rating}
                           </div>
                         </div>
                         <div className="children-stacked">
                           <button
                             className="fa fa-shopping-cart btn btn-secondary"
                             onClick={() =>
-                              addWishlistItemToCart(
-                                isLoggedIn,
-                                product,
-                                cart,
-                                dispatchCart,
-                                dispatchWishlist,
-                                navigate
-                              )
-                            }
-                          >
+                              addWishlistItemToCart(isLoggedIn, product, cart, dispatchCart, dispatchWishlist, navigate)
+                            }>
                             Move to cart
                           </button>
                         </div>

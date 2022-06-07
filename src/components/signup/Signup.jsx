@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useLogin } from "../../contexts/login-context/login-context";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createUser } from "../../utils/login-utils";
 import "./signup.css";
 
 export function Signup({ setIsSignUp }) {
   const { dispatchUser } = useLogin();
+  const location = useLocation();
   const [userErr, setUserErr] = useState({
     phone: "",
     email: "",
@@ -33,24 +34,14 @@ export function Signup({ setIsSignUp }) {
 
   const handleSignupSubmit = e => {
     e.preventDefault();
-    createUser(
-      signupForm,
-      setUserErr,
-      setSignupForm,
-      dispatchUser,
-
-      navigate
-    );
+    createUser(signupForm, setUserErr, setSignupForm, dispatchUser, navigate, location);
   };
 
   return (
     <>
       <section className="signup-section d-grid" id="signup-section">
         <h3 className="text-center">Sign-up</h3>
-        <form
-          className=" d-grid grid-gap"
-          onSubmit={e => handleSignupSubmit(e)}
-        >
+        <form className=" d-grid grid-gap" onSubmit={e => handleSignupSubmit(e)}>
           <div className="d-grid">
             <label htmlFor="firstname">
               First name
@@ -94,9 +85,7 @@ export function Signup({ setIsSignUp }) {
               value={signupForm.email}
               onChange={e => changeHandler(e)}
             />
-            {userErr.email && (
-              <div className="error-message">{userErr.email} </div>
-            )}
+            {userErr.email && <div className="error-message">{userErr.email} </div>}
           </div>
           <div className="d-grid p-rel">
             <label>
@@ -115,14 +104,12 @@ export function Signup({ setIsSignUp }) {
               <button
                 disabled={signupForm.password ? false : true}
                 className="fa fa-solid fa-eye btn btn-link p-abs password-eye"
-                onClick={e => toggleShowPassword(e)}
-              ></button>
+                onClick={e => toggleShowPassword(e)}></button>
             ) : (
               <button
                 disabled={signupForm.password ? false : true}
                 className="fa fa-solid fa-eye-slash btn btn-link p-abs password-eye"
-                onClick={e => toggleShowPassword(e)}
-              ></button>
+                onClick={e => toggleShowPassword(e)}></button>
             )}
           </div>
 
@@ -140,16 +127,11 @@ export function Signup({ setIsSignUp }) {
               onChange={e => changeHandler(e)}
             />
 
-            {userErr.phone && (
-              <div className="error-message">{userErr.phone} </div>
-            )}
+            {userErr.phone && <div className="error-message">{userErr.phone} </div>}
           </div>
           <button className="btn btn-secondary">SIGNUP</button>
         </form>
-        <button
-          className="btn btn-link create-account-link"
-          onClick={() => setIsSignUp(false)}
-        >
+        <button className="btn btn-link create-account-link" onClick={() => setIsSignUp(false)}>
           <i> Have an account? Login &nbsp;</i>
           <i className="fa fa-solid fa-angle-right"></i>
         </button>

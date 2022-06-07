@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLogin } from "../../contexts/index-context";
 import "./signup.css";
 import { loginUser } from "../../utils/login-utils";
 
 export function Signin({ setIsSignUp }) {
   const { dispatchUser } = useLogin();
+  const location = useLocation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loginForm, setLoginForm] = useState({
@@ -28,7 +29,7 @@ export function Signin({ setIsSignUp }) {
 
   const handleLoginSubmit = e => {
     e.preventDefault();
-    loginUser(loginForm, dispatchUser, navigate);
+    loginUser(loginForm, dispatchUser, navigate, location);
   };
 
   return (
@@ -67,14 +68,12 @@ export function Signin({ setIsSignUp }) {
               <button
                 disabled={loginForm.password ? false : true}
                 className="fa fa-solid fa-eye btn btn-link p-abs password-eye"
-                onClick={e => toggleShowPassword(e)}
-              ></button>
+                onClick={e => toggleShowPassword(e)}></button>
             ) : (
               <button
                 disabled={loginForm.password ? false : true}
                 className="fa fa-solid fa-eye-slash btn btn-link p-abs password-eye"
-                onClick={e => toggleShowPassword(e)}
-              ></button>
+                onClick={e => toggleShowPassword(e)}></button>
             )}
             <div className="helper-message hide">Helper message</div>
             <div className="error-message hide">Wrong Password. Try again.</div>
@@ -84,22 +83,14 @@ export function Signin({ setIsSignUp }) {
         </form>
         <button
           className="btn btn-link create-account-link"
-          onClick={() =>
-            loginUser(
-              { email: "test@gmail.com", password: "test" },
-              dispatchUser,
-              navigate
-            )
-          }
-        >
+          onClick={() => loginUser({ email: "aishwarya@gmail.com", password: "aishwarya" }, dispatchUser, navigate, location)}>
           <span className="green-text"> Login with test credentials </span>
         </button>
         <button
           className="btn btn-link create-account-link"
           onClick={() => {
             setIsSignUp(true);
-          }}
-        >
+          }}>
           <i>Create new account &nbsp;</i>
           <i className="fa fa-solid fa-angle-right"></i>
         </button>

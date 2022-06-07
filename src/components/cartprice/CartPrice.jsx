@@ -28,8 +28,8 @@ export function CartPrice() {
               {discount}
             </span>
           </div>
-          {/* keeping for future use, not required for now */}
-          {/* <div className="coupon-name d-flex">
+          {/* TODO: To be implemented in future  
+          <div className="coupon-name d-flex">
             <span>Coupon code</span>
             <span>
               <input value="FLAT50" className="coupon-code text-center" />
@@ -55,8 +55,7 @@ export function CartPrice() {
               message: "Your order is placed successfully.",
               type: "success",
             });
-          }}
-        >
+          }}>
           Place order
         </button>
       </div>

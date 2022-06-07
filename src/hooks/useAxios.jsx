@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 // NOTE: This is not being used anywhere
+// TODO: create useAxios hook for all API calls
 export default function useAxios() {
   const [response, setResponse] = useState([]);
   const [err, setErr] = useState([]);

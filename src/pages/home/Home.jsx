@@ -4,10 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { Header, Categories } from "../../components";
 import "./home.css";
 import { useFilterProducts } from "../../contexts/filter-context/filter-context";
+import { useEffect } from "react";
 
 export function Home() {
   const { dispatch: dispatchFilter } = useFilterProducts();
   const navigate = useNavigate();
+  useEffect(() => {
+    document.title = "Home | Art station";
+  }, []);
   return (
     <div>
       <Header showSearchBox={false} />
@@ -22,8 +26,7 @@ export function Home() {
               onClick={() => {
                 dispatchFilter({ type: "CLEAR_FILTER" });
                 navigate("/productlist");
-              }}
-            >
+              }}>
               SHOP NOW
             </button>
           </div>
