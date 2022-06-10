@@ -10,6 +10,7 @@
 
 - Home Page
 - Product listing Page
+- Single product Page
 - Filter and sort Products
 - Cart management
 - Wishlist management
