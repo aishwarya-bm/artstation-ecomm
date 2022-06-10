@@ -2,3 +2,7 @@
     right: 0;
     color:  var(--black-color) 
 }
+
+.search-close:hover{
+    background-color: transparent;
+}

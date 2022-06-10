@@ -9,15 +9,12 @@ export function Search() {
           type="text"
           placeholder="search for product"
           value={state.searchText}
-          onChange={event =>
-            dispatch({ type: "SEARCH_FOR", payload: event.target.value })
-          }
+          onChange={event => dispatch({ type: "SEARCH_FOR", payload: event.target.value })}
         />
         <button
           className="btn btn-link nav-btn p-abs search-close"
-          onClick={() => dispatch({ type: "CLEAR_SEARCHTEXT" })}
-        >
-          x
+          onClick={() => dispatch({ type: "CLEAR_SEARCHTEXT" })}>
+          <i class="fa fa-times" aria-hidden="true"></i>
         </button>
       </div>
     </>

@@ -22,13 +22,15 @@ export function Navpills() {
             <Link to="/" className="fa fa-solid fa-home"></Link>
           </li>
           <li className="list-item nav-item">
+            <Link to="/productlist" className="fa fa-shopping-basket"></Link>
+          </li>
+
+          <li className="list-item nav-item">
             <span className="badge-icon p-rel">
               <Link to="/wishlist">
                 <i className="fa fa-solid fa-heart nav-btn"></i>
               </Link>
-              {isLoggedIn && wishlistSize > 0 && (
-                <span className="badge">{wishlistSize}</span>
-              )}
+              {isLoggedIn && wishlistSize > 0 && <span className="badge">{wishlistSize}</span>}
             </span>
           </li>
           <li className="list-item nav-item">
@@ -36,24 +38,14 @@ export function Navpills() {
               <Link to="/cart">
                 <i className="fa fa-shopping-cart nav-btn"></i>
               </Link>
-              {isLoggedIn && cartSize > 0 && (
-                <span className="badge">{cartSize}</span>
-              )}
+              {isLoggedIn && cartSize > 0 && <span className="badge">{cartSize}</span>}
             </span>
           </li>
         </ul>
-        {isLoggedIn && (
-          <Link
-            to="/profile"
-            className="fa fa-user btn btn-link nav-btn"
-          ></Link>
-        )}
+        {isLoggedIn && <Link to="/profile" className="fa fa-user btn btn-link nav-btn"></Link>}
         {isLoggedIn && (
           <Link to="/signup">
-            <i
-              className="fa fas fa-sign-out-alt btn btn-link nav-btn"
-              onClick={() => signoutUser(dispatchUser)}
-            ></i>
+            <i className="fa fas fa-sign-out-alt btn btn-link nav-btn" onClick={() => signoutUser(dispatchUser)}></i>
           </Link>
         )}
       </div>

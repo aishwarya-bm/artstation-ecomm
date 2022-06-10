@@ -77,21 +77,22 @@ export function Productlist() {
               {filterProducts &&
                 filterProducts?.map(prod => {
                   return (
-                    <li key={prod._id}>
+                    <li key={prod._id} onClick={() => navigate(`/product/${prod._id}`)}>
                       <div className="card children-stacked product-card">
                         <div className="card-media">
                           <img src={prod.product_img} alt="card-img" />
-                          <button
-                            className="far fa-heart btn card-like"
-                            onClick={() => addToWishList(isLoggedIn, prod, dispatchWishlist, navigate)}></button>
                           {isProductInWishlist(prod._id) ? (
                             <button
                               className="far fa-heart btn card-like wishlist-item"
-                              onClick={() => removeFromWishlist(isLoggedIn, prod, dispatchWishlist, navigate)}></button>
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                removeFromWishlist(isLoggedIn, prod, dispatchWishlist, navigate)}}></button>
                           ) : (
                             <button
                               className="far fa-heart btn card-like"
-                              onClick={() => addToWishList(isLoggedIn, prod, dispatchWishlist, navigate)}></button>
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                addToWishList(isLoggedIn, prod, dispatchWishlist, navigate)}}></button>
                           )}
                         </div>
                         <div className="card-header">
@@ -110,7 +111,8 @@ export function Productlist() {
                           {isProductInCart(prod._id) ? (
                             <button
                               className="fa fa-shopping-cart btn btn-light"
-                              onClick={() => {
+                              onClick={(e) => {
+                                e.stopPropagation()
                                 navigate("/cart");
                               }}>
                               Go to cart
@@ -118,7 +120,9 @@ export function Productlist() {
                           ) : (
                             <button
                               className="fa fa-shopping-cart btn btn-secondary"
-                              onClick={() => addToCart(isLoggedIn, prod, dispatchCart, navigate)}>
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                addToCart(isLoggedIn, prod, dispatchCart, navigate)}}>
                               Add to cart
                             </button>
                           )}
